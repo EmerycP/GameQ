@@ -16,6 +16,17 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.login);
 
         TextView buttonSignUp = findViewById(R.id.signUp);
+        Button buttonLogIn = findViewById(R.id.bLogIn);
+
+        buttonLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intentMain);
+            }
+        });
+
+
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

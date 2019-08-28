@@ -14,14 +14,12 @@ public class Inscription extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
-        //getSupportActionBar().setTitle("Sign Up");
-
         Button buttonLogIn = findViewById(R.id.bSingUp);
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentBack2LogIn = new Intent(getApplicationContext(), LogIn.class);
-                startActivity(intentBack2LogIn);
+                Intent intentLogIn = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intentLogIn);
             }
         });
 

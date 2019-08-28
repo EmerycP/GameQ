@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GameQ</string>
+    <string name="gameq">GameQ!</string>
+    <string name="logo">logo</string>
+    <string name="log_in">Log In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="signUp">No account? Sign Up!</string>
+</resources>

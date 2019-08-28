@@ -2,7 +2,11 @@ package com.emerycprimeau.gameq;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class LogIn extends AppCompatActivity {
 
@@ -10,5 +14,14 @@ public class LogIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        TextView buttonSignUp = findViewById(R.id.signUp);
+        buttonSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentInscription = new Intent(getApplicationContext(), Inscription.class);
+                startActivity(intentInscription);
+            }
+        });
     }
 }

@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LogIn"
+    tools:context=".Inscription"
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#F5F5F5">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/email"
+            android:hint="@string/valid_email"
             android:inputType="textEmailAddress"
             android:layout_margin="25dp"/>
 
@@ -44,23 +45,11 @@
             android:layout_margin="25dp"/>
 
         <Button
-            android:id="@+id/bLogIn"
+            android:id="@+id/bSingUp"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="@string/log_in"
+            android:text="@string/sign_up"
             android:layout_gravity="center_horizontal"
             android:layout_margin="25dp"/>
-
-
-
-
     </LinearLayout>
-    <TextView
-        android:id="@+id/signUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/signUp"
-        android:gravity="center"
-        android:layout_margin="25dp"
-        />
 </LinearLayout>

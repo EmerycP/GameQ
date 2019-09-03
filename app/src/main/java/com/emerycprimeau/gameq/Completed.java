@@ -51,7 +51,8 @@ public class Completed extends AppCompatActivity {
                     Intent intentComplete = new Intent(getApplicationContext(), Completed.class);
                     startActivity(intentComplete);
                 } else if (id == R.id.nav_AddGame) {
-
+                    Intent intentAdd = new Intent(getApplicationContext(), AddGame.class);
+                    startActivity(intentAdd);
                 } else if (id == R.id.nav_LogOut) {
                     Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                     startActivity(intentLogIn);

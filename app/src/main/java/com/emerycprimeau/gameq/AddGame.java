@@ -14,19 +14,19 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class toComplete extends AppCompatActivity {
+public class AddGame extends AppCompatActivity {
+
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.to_complete);
-        drawerLayout = findViewById(R.id.DrawerMain);
-
+        setContentView(R.layout.add_game);
 
 
         //region Drawer Code
+        drawerLayout = findViewById(R.id.DrawerAdd);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
 
@@ -82,5 +82,4 @@ public class toComplete extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Completed" android:label="@string/Completed"></activity>
+        <activity android:name=".AddGame" android:label="@string/addGame"></activity>
+        <activity
+            android:name=".Completed"
+            android:label="@string/Completed" />
         <activity
             android:name=".toComplete"
             android:label="@string/toComplete" />

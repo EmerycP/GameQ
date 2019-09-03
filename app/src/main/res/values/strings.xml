@@ -18,4 +18,8 @@
     <string name="Completed">Game Completed</string>
     <string name="toComplete">Game to Complete</string>
     <string name="logOut">LogOut</string>
+    <string name="score">Score</string>
+    <string name="to_completeButton">To Complete</string>
+    <string name="completedButton">Completed</string>
+    <string name="gameName">Game\'s Name</string>
 </resources>

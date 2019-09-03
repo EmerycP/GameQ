@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/menuTop">
+        <item
+            android:id="@+id/nav_toComplete"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/toComplete" />
+        <item
+            android:id="@+id/nav_Completed"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/Completed" />
+        <item
+            android:id="@+id/nav_AddGame"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/addGame" />
+    </group>
+    <group android:id="@+id/menuBot" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_LogOut"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/logOut" />
+    </group>
+
+
+</menu>

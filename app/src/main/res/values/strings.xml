@@ -9,4 +9,13 @@
     <string name="sign_up">Sign Up</string>
     <string name="confirm_password">Confirm password</string>
     <string name="valid_email">Valid Email</string>
+    <string name="title_activity_drawer">Drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_TempName">Temp Name</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="addGame">Add a game</string>
+    <string name="Completed">Game Completed</string>
+    <string name="toComplete">Game to Complete</string>
+    <string name="logOut">LogOut</string>
 </resources>

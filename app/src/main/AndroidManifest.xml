@@ -9,11 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Completed" android:label="@string/Completed"></activity>
         <activity
-            android:name=".Drawer"
-            android:label="@string/title_activity_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".MainActivity" />
+            android:name=".toComplete"
+            android:label="@string/toComplete" />
         <activity
             android:name=".Inscription"
             android:theme="@style/AppThemeLogIn" />

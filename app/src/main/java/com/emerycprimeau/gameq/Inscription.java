@@ -18,7 +18,7 @@ public class Inscription extends AppCompatActivity {
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentLogIn = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intentLogIn = new Intent(getApplicationContext(), toComplete.class);
                 startActivity(intentLogIn);
             }
         });

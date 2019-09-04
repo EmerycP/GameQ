@@ -25,7 +25,6 @@ public class AddGame extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    private EditText editTextScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +36,9 @@ public class AddGame extends AppCompatActivity {
         final Button buttonCompleted = findViewById(R.id.buttonComplete);
         final Button buttonToComplete = findViewById(R.id.buttonToComplete);
         Button buttonOk = findViewById(R.id.buttonOk);
+
+        final EditText editTextScore = findViewById(R.id.Score);
+        editTextScore.setVisibility(View.INVISIBLE);
 
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +59,7 @@ public class AddGame extends AppCompatActivity {
         buttonCompleted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editTextScore = findViewById(R.id.Score);
+
                 editTextScore.setVisibility(View.VISIBLE);
 
                 buttonCompleted.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -71,7 +73,6 @@ public class AddGame extends AppCompatActivity {
         buttonToComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editTextScore = findViewById(R.id.Score);
                 editTextScore.setVisibility(View.INVISIBLE);
 
                 buttonToComplete.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));

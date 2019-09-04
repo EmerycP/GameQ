@@ -13,7 +13,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.emerycprimeau.gameq.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class Completed extends AppCompatActivity {
 
@@ -24,11 +26,24 @@ public class Completed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.completed);
-        drawerLayout = findViewById(R.id.DrawerCompleted);
 
+
+
+        //region Floating Button
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentAddGame = new Intent(getApplicationContext(), AddGame.class);
+                startActivity(intentAddGame);
+            }
+        });
+        //endregion
 
         //region Drawer Code
 
+        drawerLayout = findViewById(R.id.DrawerCompleted);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
 

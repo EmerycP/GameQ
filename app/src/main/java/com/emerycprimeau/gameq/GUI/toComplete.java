@@ -13,7 +13,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.emerycprimeau.gameq.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class toComplete extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -23,12 +25,21 @@ public class toComplete extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.to_complete);
-        drawerLayout = findViewById(R.id.DrawerMain);
 
+        //region Floating Button
 
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentAddGame = new Intent(getApplicationContext(), AddGame.class);
+                startActivity(intentAddGame);
+            }
+        });
+        //endregion
 
         //region Drawer Code
-
+        drawerLayout = findViewById(R.id.DrawerMain);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         //Set le nom de la personne connecté

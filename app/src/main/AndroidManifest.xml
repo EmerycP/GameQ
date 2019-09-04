@@ -9,18 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddGame" android:label="@string/addGame"></activity>
+        <activity android:name=".GUI.AddGame" android:label="@string/addGame"></activity>
         <activity
-            android:name=".Completed"
+            android:name=".GUI.Completed"
             android:label="@string/Completed" />
         <activity
-            android:name=".toComplete"
+            android:name=".GUI.toComplete"
             android:label="@string/toComplete" />
         <activity
-            android:name=".Inscription"
+            android:name=".GUI.Inscription"
             android:theme="@style/AppThemeLogIn" />
         <activity
-            android:name=".LogIn"
+            android:name=".GUI.LogIn"
             android:theme="@style/AppThemeLogIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

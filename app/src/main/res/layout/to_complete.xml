@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
-        tools:context=".toComplete">
+        tools:context=".GUI.toComplete">
 
 
         <TextView
@@ -33,6 +33,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_drawer"
-        app:menu="@menu/activity_drawer_drawer"/>
+        app:menu="@menu/menu_drawer"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

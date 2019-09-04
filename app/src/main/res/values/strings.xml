@@ -22,4 +22,5 @@
     <string name="to_completeButton">To Complete</string>
     <string name="completedButton">Completed</string>
     <string name="gameName">Game\'s Name</string>
+    <string name="ok">OK</string>
 </resources>

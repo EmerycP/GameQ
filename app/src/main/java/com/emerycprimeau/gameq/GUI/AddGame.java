@@ -1,29 +1,87 @@
-package com.emerycprimeau.gameq;
+package com.emerycprimeau.gameq.GUI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.emerycprimeau.gameq.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class AddGame extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private EditText editTextScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_game);
 
+
+        //region Buttons
+        final Button buttonCompleted = findViewById(R.id.buttonComplete);
+        final Button buttonToComplete = findViewById(R.id.buttonToComplete);
+        Button buttonOk = findViewById(R.id.buttonOk);
+
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(editTextScore.getVisibility() == View.VISIBLE )
+                {
+                    Intent intentCompleted = new Intent(getApplicationContext(), Completed.class);
+                    startActivity(intentCompleted);
+                }
+                else
+                {
+                    Intent intentMain = new Intent(getApplicationContext(), toComplete.class);
+                    startActivity(intentMain);
+                }
+            }
+        });
+
+        buttonCompleted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editTextScore = findViewById(R.id.Score);
+                editTextScore.setVisibility(View.VISIBLE);
+
+                buttonCompleted.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                buttonCompleted.setTextColor(Color.WHITE);
+
+                buttonToComplete.setBackgroundColor(Color.LTGRAY);
+                buttonToComplete.setTextColor(Color.BLACK);
+
+            }
+        });
+        buttonToComplete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editTextScore = findViewById(R.id.Score);
+                editTextScore.setVisibility(View.INVISIBLE);
+
+                buttonToComplete.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                buttonToComplete.setTextColor(Color.WHITE);
+
+                buttonCompleted.setBackgroundColor(Color.LTGRAY);
+                buttonCompleted.setTextColor(Color.BLACK);
+            }
+        });
+        //endregion
 
         //region Drawer Code
         drawerLayout = findViewById(R.id.DrawerAdd);

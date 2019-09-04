@@ -1,4 +1,4 @@
-package com.emerycprimeau.gameq;
+package com.emerycprimeau.gameq.GUI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.emerycprimeau.gameq.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class Completed extends AppCompatActivity {

@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".AddGame"
+        tools:context=".GUI.AddGame"
         android:gravity="center_horizontal">
 
 
@@ -33,17 +33,20 @@
             android:layout_marginTop="50dp">
             <Button
                 android:id="@+id/buttonComplete"
-                android:layout_width="wrap_content"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:text="@string/completedButton"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gameName" />
 
             <Button
                 android:id="@+id/buttonToComplete"
-                android:layout_width="wrap_content"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorPrimaryDark"
                 android:text="@string/to_completeButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gameName" />
@@ -57,11 +60,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:visibility="invisible"
             android:inputType="textPersonName"
             app:layout_constraintTop_toBottomOf="@+id/buttonComplete" />
-
+        <Button
+            android:id="@+id/buttonOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/ok"
+            app:layout_constraintTop_toBottomOf="@+id/gameName" />
 
     </LinearLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -69,5 +80,5 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_drawer"
-        app:menu="@menu/activity_drawer_drawer"/>
+        app:menu="@menu/menu_drawer"/>
 </androidx.drawerlayout.widget.DrawerLayout>

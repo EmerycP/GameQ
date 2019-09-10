@@ -11,16 +11,16 @@
         android:theme="@style/AppTheme">
         <activity android:name=".GUI.AddGame" android:label="@string/addGame"></activity>
         <activity
-            android:name=".GUI.Completed"
+            android:name=".GUI.completed.Completed"
             android:label="@string/Completed" />
         <activity
-            android:name=".GUI.toComplete"
+            android:name=".GUI.toComplete.toComplete"
             android:label="@string/toComplete" />
         <activity
-            android:name=".GUI.Inscription"
+            android:name=".GUI.connexion.Inscription"
             android:theme="@style/AppThemeLogIn" />
         <activity
-            android:name=".GUI.LogIn"
+            android:name=".GUI.connexion.LogIn"
             android:theme="@style/AppThemeLogIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

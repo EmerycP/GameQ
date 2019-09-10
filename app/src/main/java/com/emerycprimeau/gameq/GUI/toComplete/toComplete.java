@@ -1,10 +1,12 @@
-package com.emerycprimeau.gameq.GUI;
+package com.emerycprimeau.gameq.GUI.toComplete;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,22 +14,52 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.emerycprimeau.gameq.GUI.AddGame;
+import com.emerycprimeau.gameq.GUI.completed.Completed;
+import com.emerycprimeau.gameq.GUI.connexion.LogIn;
 import com.emerycprimeau.gameq.R;
+import com.emerycprimeau.gameq.models.gameToComplete;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
-public class Completed extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 
+public class toComplete extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+
+    //RecyclerView
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    public List<gameToComplete> gameToCompleteList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.completed);
+        setContentView(R.layout.to_complete);
 
 
+
+        //region recyclerView
+        gameToCompleteList = new ArrayList<>(Arrays.asList(
+                new gameToComplete(Calendar.getInstance().getTime().toString(), "The Witcher 3"),
+                new gameToComplete(Calendar.getInstance().getTime().toString(), "Spider-Man PS4")
+        ));
+
+        recyclerView = findViewById(R.id.recyclerViewToComplete);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new monAdapteurToComplete(gameToCompleteList, getApplicationContext());
+        recyclerView.setAdapter(mAdapter);
+
+        //endregion
 
         //region Floating Button
 
@@ -42,9 +74,7 @@ public class Completed extends AppCompatActivity {
         //endregion
 
         //region Drawer Code
-
-        drawerLayout = findViewById(R.id.DrawerCompleted);
-
+        drawerLayout = findViewById(R.id.DrawerMain);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         //Set le nom de la personne connecté

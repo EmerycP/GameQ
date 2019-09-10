@@ -1,4 +1,4 @@
-package com.emerycprimeau.gameq.GUI;
+package com.emerycprimeau.gameq.GUI.connexion;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.emerycprimeau.gameq.GUI.toComplete.toComplete;
 import com.emerycprimeau.gameq.R;
 
 public class Inscription extends AppCompatActivity {

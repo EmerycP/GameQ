@@ -3,21 +3,21 @@ package com.emerycprimeau.gameq.GUI;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.emerycprimeau.gameq.GUI.completed.Completed;
+import com.emerycprimeau.gameq.GUI.connexion.LogIn;
+import com.emerycprimeau.gameq.GUI.toComplete.toComplete;
 import com.emerycprimeau.gameq.R;
 import com.google.android.material.navigation.NavigationView;
 

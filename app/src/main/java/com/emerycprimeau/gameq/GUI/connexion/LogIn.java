@@ -1,4 +1,4 @@
-package com.emerycprimeau.gameq.GUI;
+package com.emerycprimeau.gameq.GUI.connexion;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.emerycprimeau.gameq.GUI.connexion.Inscription;
+import com.emerycprimeau.gameq.GUI.toComplete.toComplete;
 import com.emerycprimeau.gameq.R;
 
 public class LogIn extends AppCompatActivity {

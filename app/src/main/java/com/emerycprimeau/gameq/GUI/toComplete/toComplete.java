@@ -22,9 +22,11 @@ import com.emerycprimeau.gameq.models.gameToComplete;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class toComplete extends AppCompatActivity {
@@ -44,10 +46,15 @@ public class toComplete extends AppCompatActivity {
 
 
 
+
         //region recyclerView
+
+        SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy  HH:mm");
+        String date = format.format(Date.parse(Calendar.getInstance().getTime().toString()));
+
         gameToCompleteList = new ArrayList<>(Arrays.asList(
-                new gameToComplete(Calendar.getInstance().getTime().toString(), "The Witcher 3"),
-                new gameToComplete(Calendar.getInstance().getTime().toString(), "Spider-Man PS4")
+                new gameToComplete(date, "The Witcher 3"),
+                new gameToComplete(date, "Spider-Man PS4")
         ));
 
         recyclerView = findViewById(R.id.recyclerViewToComplete);

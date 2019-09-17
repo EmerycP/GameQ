@@ -22,11 +22,13 @@ import com.emerycprimeau.gameq.models.gameCompleted;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class Completed extends AppCompatActivity {
@@ -49,10 +51,14 @@ public class Completed extends AppCompatActivity {
 
 
         //region recyclerView
+
+        SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy  HH:mm");
+        String date = format.format(Date.parse(Calendar.getInstance().getTime().toString()));
+
         gameCompletedList = new ArrayList<>(Arrays.asList(
-                new gameCompleted(Calendar.getInstance().getTime().toString(), "Fortnite", 5),
-                new gameCompleted(Calendar.getInstance().getTime().toString(), "Rayman 3", 87),
-                new gameCompleted(Calendar.getInstance().getTime().toString(), "Greedfall", 81)
+                new gameCompleted(date, "Fortnite", 5),
+                new gameCompleted(date, "Rayman 3", 87),
+                new gameCompleted(date, "Greedfall", 81)
 
         ));
 

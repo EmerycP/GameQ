@@ -1,13 +1,17 @@
 package com.emerycprimeau.gameq.GUI.completed;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.emerycprimeau.gameq.GUI.EditGame;
 import com.emerycprimeau.gameq.R;
 import com.emerycprimeau.gameq.models.gameCompleted;
 
@@ -46,6 +50,25 @@ public class monAdapteurCompleted extends RecyclerView.Adapter<monAdapteurComple
                                                                  int viewType) {
         // create a new view
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_completed, parent, false);
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), EditGame.class);
+
+                //give the name
+                Bundle bundle = new Bundle();
+                TextView textViewGameName = view.findViewById(R.id.textGameCompleted);
+                TextView textViewScore = view.findViewById(R.id.textScore);
+                bundle.putCharSequence("gameName", textViewGameName.getText());
+                bundle.putCharSequence("score", textViewScore.getText());
+                bundle.putBoolean("Completed", true);
+                i.putExtras(bundle);
+
+                view.getContext().startActivity(i);
+            }
+        });
+
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }

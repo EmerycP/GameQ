@@ -13,11 +13,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.emerycprimeau.gameq.GUI.AddGame;
 import com.emerycprimeau.gameq.GUI.completed.Completed;
 import com.emerycprimeau.gameq.GUI.connexion.LogIn;
 import com.emerycprimeau.gameq.R;
+import com.emerycprimeau.gameq.models.currentUser;
 import com.emerycprimeau.gameq.models.gameToComplete;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -43,9 +45,6 @@ public class toComplete extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.to_complete);
-
-
-
 
         //region recyclerView
 
@@ -87,7 +86,7 @@ public class toComplete extends AppCompatActivity {
         //Set le nom de la personne connecté
         View headerView = navigationView.getHeaderView(0);
         TextView nameLog = (TextView) headerView.findViewById(R.id.logInName);
-        nameLog.setText("Test");
+        nameLog.setText(currentUser.email);
 
 
         if(getSupportActionBar() != null)

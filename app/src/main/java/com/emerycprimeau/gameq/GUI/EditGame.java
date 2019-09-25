@@ -19,6 +19,7 @@ import com.emerycprimeau.gameq.GUI.completed.Completed;
 import com.emerycprimeau.gameq.GUI.connexion.LogIn;
 import com.emerycprimeau.gameq.GUI.toComplete.toComplete;
 import com.emerycprimeau.gameq.R;
+import com.emerycprimeau.gameq.models.currentUser;
 import com.google.android.material.navigation.NavigationView;
 
 public class EditGame extends AppCompatActivity {
@@ -127,7 +128,7 @@ public class EditGame extends AppCompatActivity {
         //Set le nom de la personne connecté
         View headerView = navigationView.getHeaderView(0);
         TextView nameLog = (TextView) headerView.findViewById(R.id.logInName);
-        nameLog.setText("Test");
+        nameLog.setText(currentUser.email);
 
 
         if(getSupportActionBar() != null)

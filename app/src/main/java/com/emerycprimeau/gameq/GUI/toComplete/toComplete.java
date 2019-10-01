@@ -19,17 +19,19 @@ import com.emerycprimeau.gameq.GUI.AddGame;
 import com.emerycprimeau.gameq.GUI.completed.Completed;
 import com.emerycprimeau.gameq.GUI.connexion.LogIn;
 import com.emerycprimeau.gameq.R;
+import com.emerycprimeau.gameq.http.GameRetrofit;
+import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.currentUser;
-import com.emerycprimeau.gameq.models.gameToComplete;
+import com.emerycprimeau.gameq.models.transfer.gameRequest;
+import com.emerycprimeau.gameq.models.transfer.gameToCompleteResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class toComplete extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -39,31 +41,37 @@ public class toComplete extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    public List<gameToComplete> gameToCompleteList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.to_complete);
+        ServiceMock serviceMock = GameRetrofit.get();
 
         //region recyclerView
-
-        SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy  HH:mm");
-        String date = format.format(Date.parse(Calendar.getInstance().getTime().toString()));
-
-        gameToCompleteList = new ArrayList<>(Arrays.asList(
-                new gameToComplete(date, "The Witcher 3"),
-                new gameToComplete(date, "Spider-Man PS4")
-        ));
-
         recyclerView = findViewById(R.id.recyclerViewToComplete);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new monAdapteurToComplete(gameToCompleteList, getApplicationContext());
-        recyclerView.setAdapter(mAdapter);
+        gameRequest game = new gameRequest();
+        serviceMock.getToCompleteList(game).enqueue(new Callback<List<gameToCompleteResponse>>() {
+            @Override
+            public void onResponse(Call<List<gameToCompleteResponse>> call, Response<List<gameToCompleteResponse>> response) {
+                if(response.isSuccessful())
+                {
+                    mAdapter = new monAdapteurToComplete(response.body(), getApplicationContext());
+                    recyclerView.setAdapter(mAdapter);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<gameToCompleteResponse>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         //endregion
 

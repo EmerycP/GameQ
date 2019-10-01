@@ -18,8 +18,12 @@ import com.emerycprimeau.gameq.GUI.AddGame;
 import com.emerycprimeau.gameq.GUI.connexion.LogIn;
 import com.emerycprimeau.gameq.GUI.toComplete.toComplete;
 import com.emerycprimeau.gameq.R;
+import com.emerycprimeau.gameq.http.GameRetrofit;
+import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.currentUser;
 import com.emerycprimeau.gameq.models.gameCompleted;
+import com.emerycprimeau.gameq.models.transfer.gameCompletedResponse;
+import com.emerycprimeau.gameq.models.transfer.gameRequest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -31,6 +35,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Completed extends AppCompatActivity {
 
@@ -48,22 +56,11 @@ public class Completed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.completed);
-
+        ServiceMock serviceMock = GameRetrofit.get();
 
 
         //region recyclerView
 
-        SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy  HH:mm");
-        String date = format.format(Date.parse(Calendar.getInstance().getTime().toString()));
-
-        gameCompletedList = new ArrayList<>(Arrays.asList(
-                new gameCompleted(date, "Fortnite", 5),
-                new gameCompleted(date, "Rayman 3", 87),
-                new gameCompleted(date, "Greedfall", 81)
-
-        ));
-
-        Collections.sort(gameCompletedList, new sorted());
 
         recyclerView = findViewById(R.id.recyclerViewCompleted);
         recyclerView.setHasFixedSize(true);
@@ -71,9 +68,24 @@ public class Completed extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new monAdapteurCompleted(gameCompletedList, getApplicationContext());
-        recyclerView.setAdapter(mAdapter);
 
+        gameRequest gameRequest = new gameRequest();
+
+        serviceMock.getCompletedList(gameRequest).enqueue(new Callback<List<gameCompletedResponse>>() {
+            @Override
+            public void onResponse(Call<List<gameCompletedResponse>> call, Response<List<gameCompletedResponse>> response) {
+                if(response.isSuccessful())
+                {
+                    mAdapter = new monAdapteurCompleted(response.body(), getApplicationContext());
+                    recyclerView.setAdapter(mAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<gameCompletedResponse>> call, Throwable t) {
+
+            }
+        });
         //endregion
 
         //region Floating Button

@@ -14,13 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.emerycprimeau.gameq.GUI.EditGame;
 import com.emerycprimeau.gameq.R;
 import com.emerycprimeau.gameq.models.gameCompleted;
+import com.emerycprimeau.gameq.models.transfer.gameCompletedResponse;
 
 import java.util.List;
 
 
 public class monAdapteurCompleted extends RecyclerView.Adapter<monAdapteurCompleted.MyViewHolder>{
     public Context context;
-    public List<gameCompleted> mDataset;
+    public List<gameCompletedResponse> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -39,7 +40,7 @@ public class monAdapteurCompleted extends RecyclerView.Adapter<monAdapteurComple
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public monAdapteurCompleted(List<gameCompleted> pDataset, Context ctx) {
+    public monAdapteurCompleted(List<gameCompletedResponse> pDataset, Context ctx) {
         mDataset = pDataset;
         this.context = ctx;
     }
@@ -78,7 +79,7 @@ public class monAdapteurCompleted extends RecyclerView.Adapter<monAdapteurComple
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final gameCompleted objetActuel = mDataset.get(position);
+        final gameCompletedResponse objetActuel = mDataset.get(position);
 
         holder.tvDateAdded.setText(objetActuel.date);
         holder.tvName.setText(String.valueOf(objetActuel.name));

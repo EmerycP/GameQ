@@ -1,32 +1,34 @@
 package com.emerycprimeau.gameq.http.mock;
 
-import com.emerycprimeau.gameq.models.transfer.gameCompletedResponse;
-import com.emerycprimeau.gameq.models.transfer.gameRequest;
-import com.emerycprimeau.gameq.models.transfer.gameToCompleteResponse;
-import com.emerycprimeau.gameq.models.transfer.loginRequest;
-import com.emerycprimeau.gameq.models.transfer.loginResponse;
-import com.emerycprimeau.gameq.models.transfer.signupRequest;
+import com.emerycprimeau.gameq.models.transfer.GameCompletedResponse;
+import com.emerycprimeau.gameq.models.transfer.GameRequest;
+import com.emerycprimeau.gameq.models.transfer.GameToCompleteResponse;
+import com.emerycprimeau.gameq.models.transfer.LoginRequest;
+import com.emerycprimeau.gameq.models.transfer.LoginResponse;
+import com.emerycprimeau.gameq.models.transfer.LogoutRequest;
+import com.emerycprimeau.gameq.models.transfer.LogoutResponse;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 public interface ServiceMock {
 
     @POST("login")
-    Call<loginResponse> toLogin(loginRequest logR);
+    Call<LoginResponse> toLogin(LoginRequest logR);
 
     @POST("signup")
-    Call<loginResponse> toSignUp (loginRequest logR);
+    Call<LoginResponse> toSignUp (LoginRequest logR);
 
     @GET("getToComplete")
-    Call<List<gameToCompleteResponse>> getToCompleteList (gameRequest gR);
-
+    Call<List<GameToCompleteResponse>> getToCompleteList (GameRequest gR);
 
     @GET("getCompleted")
-    Call<List<gameCompletedResponse>> getCompletedList (gameRequest gR);
+    Call<List<GameCompletedResponse>> getCompletedList (GameRequest gR);
+
+    @POST("logOut")
+    Call<LogoutResponse> toLogOut (LogoutRequest logoutRequest);
 
 }

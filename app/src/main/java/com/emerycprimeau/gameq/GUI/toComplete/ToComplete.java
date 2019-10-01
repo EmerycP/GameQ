@@ -21,9 +21,11 @@ import com.emerycprimeau.gameq.GUI.connexion.LogIn;
 import com.emerycprimeau.gameq.R;
 import com.emerycprimeau.gameq.http.GameRetrofit;
 import com.emerycprimeau.gameq.http.mock.ServiceMock;
-import com.emerycprimeau.gameq.models.currentUser;
-import com.emerycprimeau.gameq.models.transfer.gameRequest;
-import com.emerycprimeau.gameq.models.transfer.gameToCompleteResponse;
+import com.emerycprimeau.gameq.models.CurrentUser;
+import com.emerycprimeau.gameq.models.transfer.GameRequest;
+import com.emerycprimeau.gameq.models.transfer.GameToCompleteResponse;
+import com.emerycprimeau.gameq.models.transfer.LogoutRequest;
+import com.emerycprimeau.gameq.models.transfer.LogoutResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class toComplete extends AppCompatActivity {
+public class ToComplete extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -46,7 +48,7 @@ public class toComplete extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.to_complete);
-        ServiceMock serviceMock = GameRetrofit.get();
+        final ServiceMock serviceMock = GameRetrofit.get();
 
         //region recyclerView
         recyclerView = findViewById(R.id.recyclerViewToComplete);
@@ -55,18 +57,18 @@ public class toComplete extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        gameRequest game = new gameRequest();
-        serviceMock.getToCompleteList(game).enqueue(new Callback<List<gameToCompleteResponse>>() {
+        GameRequest game = new GameRequest();
+        serviceMock.getToCompleteList(game).enqueue(new Callback<List<GameToCompleteResponse>>() {
             @Override
-            public void onResponse(Call<List<gameToCompleteResponse>> call, Response<List<gameToCompleteResponse>> response) {
+            public void onResponse(Call<List<GameToCompleteResponse>> call, Response<List<GameToCompleteResponse>> response) {
                 if(response.isSuccessful())
                 {
-                    mAdapter = new monAdapteurToComplete(response.body(), getApplicationContext());
+                    mAdapter = new MonAdapteurToComplete(response.body(), getApplicationContext());
                     recyclerView.setAdapter(mAdapter);
                 }
             }
             @Override
-            public void onFailure(Call<List<gameToCompleteResponse>> call, Throwable t) {
+            public void onFailure(Call<List<GameToCompleteResponse>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
             }
         });
@@ -94,7 +96,7 @@ public class toComplete extends AppCompatActivity {
         //Set le nom de la personne connecté
         View headerView = navigationView.getHeaderView(0);
         TextView nameLog = (TextView) headerView.findViewById(R.id.logInName);
-        nameLog.setText(currentUser.email);
+        nameLog.setText(CurrentUser.email);
 
 
         if(getSupportActionBar() != null)
@@ -104,7 +106,7 @@ public class toComplete extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 if (id == R.id.nav_toComplete) {
-                    Intent intentToComplete = new Intent(getApplicationContext(), toComplete.class);
+                    Intent intentToComplete = new Intent(getApplicationContext(), ToComplete.class);
                     startActivity(intentToComplete);
 
                 } else if (id == R.id.nav_Completed) {
@@ -114,8 +116,23 @@ public class toComplete extends AppCompatActivity {
                     Intent intentAdd = new Intent(getApplicationContext(), AddGame.class);
                     startActivity(intentAdd);
                 } else if (id == R.id.nav_LogOut) {
-                    Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
-                    startActivity(intentLogIn);
+                    LogoutRequest lR = new LogoutRequest();
+                    serviceMock.toLogOut(lR).enqueue(new Callback<LogoutResponse>() {
+                        @Override
+                        public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                            if(response.isSuccessful())
+                            {
+                                Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
+                                startActivity(intentLogIn);
+                                Toast.makeText(getApplicationContext(), "Au revoir " + CurrentUser.email + " !", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;

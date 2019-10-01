@@ -13,15 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emerycprimeau.gameq.GUI.EditGame;
 import com.emerycprimeau.gameq.R;
-import com.emerycprimeau.gameq.models.gameCompleted;
-import com.emerycprimeau.gameq.models.transfer.gameCompletedResponse;
+import com.emerycprimeau.gameq.models.transfer.GameCompletedResponse;
 
 import java.util.List;
 
 
-public class monAdapteurCompleted extends RecyclerView.Adapter<monAdapteurCompleted.MyViewHolder>{
+public class MonAdapteurCompleted extends RecyclerView.Adapter<MonAdapteurCompleted.MyViewHolder>{
     public Context context;
-    public List<gameCompletedResponse> mDataset;
+    public List<GameCompletedResponse> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -40,15 +39,15 @@ public class monAdapteurCompleted extends RecyclerView.Adapter<monAdapteurComple
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public monAdapteurCompleted(List<gameCompletedResponse> pDataset, Context ctx) {
+    public MonAdapteurCompleted(List<GameCompletedResponse> pDataset, Context ctx) {
         mDataset = pDataset;
         this.context = ctx;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public monAdapteurCompleted.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                                 int viewType) {
+    public MonAdapteurCompleted.MyViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                int viewType) {
         // create a new view
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_completed, parent, false);
 
@@ -79,7 +78,7 @@ public class monAdapteurCompleted extends RecyclerView.Adapter<monAdapteurComple
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final gameCompletedResponse objetActuel = mDataset.get(position);
+        final GameCompletedResponse objetActuel = mDataset.get(position);
 
         holder.tvDateAdded.setText(objetActuel.date);
         holder.tvName.setText(String.valueOf(objetActuel.name));

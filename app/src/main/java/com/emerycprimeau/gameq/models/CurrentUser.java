@@ -1,6 +1,6 @@
 package com.emerycprimeau.gameq.models;
 
-public class currentUser {
+public class CurrentUser {
     public static int currentId;
     public static String email;
 }

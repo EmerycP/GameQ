@@ -14,13 +14,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.emerycprimeau.gameq.GUI.completed.Completed;
 import com.emerycprimeau.gameq.GUI.connexion.LogIn;
-import com.emerycprimeau.gameq.GUI.toComplete.toComplete;
+import com.emerycprimeau.gameq.GUI.toComplete.ToComplete;
 import com.emerycprimeau.gameq.R;
-import com.emerycprimeau.gameq.models.currentUser;
+import com.emerycprimeau.gameq.http.GameRetrofit;
+import com.emerycprimeau.gameq.http.mock.ServiceMock;
+import com.emerycprimeau.gameq.models.CurrentUser;
+import com.emerycprimeau.gameq.models.transfer.LogoutRequest;
+import com.emerycprimeau.gameq.models.transfer.LogoutResponse;
 import com.google.android.material.navigation.NavigationView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddGame extends AppCompatActivity {
 
@@ -31,7 +40,7 @@ public class AddGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_game);
-
+        final ServiceMock serviceMock = GameRetrofit.get();
 
         //region Buttons
         final Button buttonCompleted = findViewById(R.id.buttonComplete);
@@ -51,7 +60,7 @@ public class AddGame extends AppCompatActivity {
                 }
                 else
                 {
-                    Intent intentMain = new Intent(getApplicationContext(), toComplete.class);
+                    Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
                     startActivity(intentMain);
                 }
             }
@@ -93,7 +102,7 @@ public class AddGame extends AppCompatActivity {
         //Set le nom de la personne connecté
         View headerView = navigationView.getHeaderView(0);
         TextView nameLog = (TextView) headerView.findViewById(R.id.logInName);
-        nameLog.setText(currentUser.email);
+        nameLog.setText(CurrentUser.email);
 
 
         if(getSupportActionBar() != null)
@@ -103,7 +112,7 @@ public class AddGame extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 if (id == R.id.nav_toComplete) {
-                    Intent intentToComplete = new Intent(getApplicationContext(), toComplete.class);
+                    Intent intentToComplete = new Intent(getApplicationContext(), ToComplete.class);
                     startActivity(intentToComplete);
 
                 } else if (id == R.id.nav_Completed) {
@@ -113,8 +122,23 @@ public class AddGame extends AppCompatActivity {
                     Intent intentAdd = new Intent(getApplicationContext(), AddGame.class);
                     startActivity(intentAdd);
                 } else if (id == R.id.nav_LogOut) {
-                    Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
-                    startActivity(intentLogIn);
+                    LogoutRequest lR = new LogoutRequest();
+                    serviceMock.toLogOut(lR).enqueue(new Callback<LogoutResponse>() {
+                        @Override
+                        public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                            if(response.isSuccessful())
+                            {
+                                Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
+                                startActivity(intentLogIn);
+                                Toast.makeText(getApplicationContext(), "Au revoir " + CurrentUser.email + " !", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;

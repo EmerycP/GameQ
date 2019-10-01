@@ -1,4 +1,5 @@
 package com.emerycprimeau.gameq.models.transfer;
 
-public class signupRequest extends  loginRequest {
+public class GameRequest {
+    public Long userId;
 }

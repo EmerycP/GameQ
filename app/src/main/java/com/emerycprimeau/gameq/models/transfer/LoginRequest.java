@@ -1,6 +1,6 @@
 package com.emerycprimeau.gameq.models.transfer;
 
-public class loginRequest {
+public class LoginRequest {
     public String email;
     public String password;
 }

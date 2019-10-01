@@ -19,7 +19,7 @@
             android:name=".GUI.completed.Completed"
             android:label="@string/Completed" />
         <activity
-            android:name=".GUI.toComplete.toComplete"
+            android:name=".GUI.toComplete.ToComplete"
             android:label="@string/toComplete" />
         <activity
             android:name=".GUI.connexion.Inscription"

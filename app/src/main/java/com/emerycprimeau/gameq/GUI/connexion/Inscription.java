@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emerycprimeau.gameq.GUI.toComplete.ToComplete;
@@ -30,10 +31,14 @@ public class Inscription extends AppCompatActivity {
         final ServiceMock mockService = GameRetrofit.get();
 
         Button buttonLogIn = findViewById(R.id.bSingUp);
+        final TextView emailSign = findViewById(R.id.emailTextSign);
+        final TextView passSign = findViewById(R.id.passwordTextSign);
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SignupRequest sR = new SignupRequest();
+                sR.email = emailSign.getText().toString();
+                sR.password = passSign.getText().toString();
                 mockService.toSignUp(sR).enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {

@@ -17,7 +17,7 @@
 
 
         <EditText
-            android:id="@+id/gameName"
+            android:id="@+id/gameNameAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
@@ -54,14 +54,14 @@
 
         </LinearLayout>
         <EditText
-            android:id="@+id/Score"
+            android:id="@+id/ScoreAdd"
             android:layout_marginTop="50dp"
             android:hint="@string/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:visibility="invisible"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintTop_toBottomOf="@+id/buttonComplete" />
         <Button
             android:id="@+id/buttonOk"

@@ -3,6 +3,9 @@ package com.emerycprimeau.gameq.http.mock;
 import com.emerycprimeau.gameq.GUI.completed.Sorted;
 import com.emerycprimeau.gameq.models.transfer.GameCompletedResponse;
 import com.emerycprimeau.gameq.models.transfer.GameRequest;
+import com.emerycprimeau.gameq.models.transfer.GameRequestEdit;
+import com.emerycprimeau.gameq.models.transfer.GameResponseAdd;
+import com.emerycprimeau.gameq.models.transfer.GameResponseEdit;
 import com.emerycprimeau.gameq.models.transfer.GameToCompleteResponse;
 import com.emerycprimeau.gameq.models.transfer.LoginRequest;
 import com.emerycprimeau.gameq.models.transfer.LoginResponse;
@@ -94,5 +97,24 @@ public class Mock implements ServiceMock {
         return this.delegate.returningResponse(logoutresponse).toLogOut(logoutRequest);
     }
 
+    @Override
+    public Call<GameResponseEdit> getToEdit(int gameID) {
+        GameResponseEdit game = new GameResponseEdit();
+        game.gameID = 45;
+        game.name = "League of Legends";
+        game.score = 78;
+        game.estComplete = true;
 
+        return this.delegate.returningResponse(game).getToEdit(gameID);
+    }
+
+    @Override
+    public Call<Boolean> toEdit(GameRequestEdit gameRequestEdit) {
+        return  this.delegate.returningResponse(true).toEdit(gameRequestEdit);
+    }
+
+    @Override
+    public Call<Boolean> toAdd(GameResponseAdd gameResponseAdd) {
+        return  this.delegate.returningResponse(true).toAdd(gameResponseAdd);
+    }
 }

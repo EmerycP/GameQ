@@ -30,6 +30,8 @@ public class LogIn extends AppCompatActivity {
 
         TextView buttonSignUp = findViewById(R.id.signUp);
         Button buttonLogIn = findViewById(R.id.bLogIn);
+        final TextView emailLogin = findViewById(R.id.emailText);
+        final TextView passLogin = findViewById(R.id.passwordText);
 
         final ServiceMock mockService = GameRetrofit.get();
 
@@ -38,6 +40,8 @@ public class LogIn extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LoginRequest lR = new LoginRequest();
+                lR.email = emailLogin.getText().toString();
+                lR.password = passLogin.getText().toString();
                 mockService.toLogin(lR).enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {

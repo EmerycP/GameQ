@@ -2,6 +2,9 @@ package com.emerycprimeau.gameq.http.mock;
 
 import com.emerycprimeau.gameq.models.transfer.GameCompletedResponse;
 import com.emerycprimeau.gameq.models.transfer.GameRequest;
+import com.emerycprimeau.gameq.models.transfer.GameRequestEdit;
+import com.emerycprimeau.gameq.models.transfer.GameResponseAdd;
+import com.emerycprimeau.gameq.models.transfer.GameResponseEdit;
 import com.emerycprimeau.gameq.models.transfer.GameToCompleteResponse;
 import com.emerycprimeau.gameq.models.transfer.LoginRequest;
 import com.emerycprimeau.gameq.models.transfer.LoginResponse;
@@ -30,5 +33,14 @@ public interface ServiceMock {
 
     @POST("logOut")
     Call<LogoutResponse> toLogOut (LogoutRequest logoutRequest);
+
+    @GET("GameEdit")
+    Call<GameResponseEdit> getToEdit (int gameID);
+
+    @POST("GameEdited")
+    Call<Boolean> toEdit(GameRequestEdit gameRequestEdit);
+
+    @POST("GameAdded")
+    Call<Boolean> toAdd(GameResponseAdd gameResponseAdd);
 
 }

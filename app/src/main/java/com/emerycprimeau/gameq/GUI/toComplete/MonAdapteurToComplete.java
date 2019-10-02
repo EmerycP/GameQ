@@ -13,14 +13,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emerycprimeau.gameq.GUI.EditGame;
 import com.emerycprimeau.gameq.R;
+import com.emerycprimeau.gameq.http.GameRetrofit;
+import com.emerycprimeau.gameq.http.mock.ServiceMock;
+import com.emerycprimeau.gameq.models.transfer.GameResponseEdit;
 import com.emerycprimeau.gameq.models.transfer.GameToCompleteResponse;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MonAdapteurToComplete extends RecyclerView.Adapter<MonAdapteurToComplete.MyViewHolder>{
     public Context context;
     public List<GameToCompleteResponse> mDataset;
+    public ServiceMock serviceMock = GameRetrofit.get();
+    public Bundle bundle;
+    public TextView textViewGameName;
+    public Intent i;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -29,8 +40,10 @@ public class MonAdapteurToComplete extends RecyclerView.Adapter<MonAdapteurToCom
         // each data item is just a string in this case
         public TextView tvDateAdded;
         public TextView tvName;
+        public LinearLayout ll;
         public MyViewHolder(LinearLayout v) {
             super(v);
+            this.ll = v;
             tvDateAdded = v.findViewById(R.id.textDateToComplete);
             tvName = v.findViewById(R.id.textGameToComplete);
         }
@@ -49,21 +62,7 @@ public class MonAdapteurToComplete extends RecyclerView.Adapter<MonAdapteurToCom
         // create a new view
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tocomplete, parent, false);
 
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), EditGame.class);
 
-                //give the name
-                Bundle bundle = new Bundle();
-                TextView textViewGameName = view.findViewById(R.id.textGameToComplete);
-                bundle.putCharSequence("gameName", textViewGameName.getText());
-                bundle.putBoolean("Completed", false);
-                i.putExtras(bundle);
-
-                view.getContext().startActivity(i);
-            }
-        });
 
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
@@ -78,6 +77,14 @@ public class MonAdapteurToComplete extends RecyclerView.Adapter<MonAdapteurToCom
 
         holder.tvDateAdded.setText(objetActuel.date);
         holder.tvName.setText(String.valueOf(objetActuel.name));
+        holder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), EditGame.class);
+                i.putExtra("id" , objetActuel.gameId);
+                view.getContext().startActivity(i);
+            }
+        });
     }
 
 

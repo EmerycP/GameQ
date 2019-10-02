@@ -63,6 +63,7 @@ public class Completed extends AppCompatActivity {
 
 
         GameRequest gameRequest = new GameRequest();
+        gameRequest.userId = CurrentUser.currentId;
 
         serviceMock.getCompletedList(gameRequest).enqueue(new Callback<List<GameCompletedResponse>>() {
             @Override

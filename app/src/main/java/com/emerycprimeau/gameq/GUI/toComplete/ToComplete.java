@@ -58,6 +58,7 @@ public class ToComplete extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         GameRequest game = new GameRequest();
+        game.userId = CurrentUser.currentId;
         serviceMock.getToCompleteList(game).enqueue(new Callback<List<GameToCompleteResponse>>() {
             @Override
             public void onResponse(Call<List<GameToCompleteResponse>> call, Response<List<GameToCompleteResponse>> response) {
@@ -123,9 +124,9 @@ public class ToComplete extends AppCompatActivity {
                             if(response.isSuccessful())
                             {
                                 Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
-                                startActivity(intentLogIn);
-                                Toast.makeText(getApplicationContext(), "Au revoir " + CurrentUser.email + " !", Toast.LENGTH_SHORT).show();
-                            }
+                            startActivity(intentLogIn);
+                            Toast.makeText(getApplicationContext(), "Au revoir " + CurrentUser.email + " !", Toast.LENGTH_SHORT).show();
+                        }
                         }
 
                         @Override

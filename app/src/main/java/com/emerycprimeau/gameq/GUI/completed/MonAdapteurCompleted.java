@@ -30,8 +30,10 @@ public class MonAdapteurCompleted extends RecyclerView.Adapter<MonAdapteurComple
         public TextView tvDateAdded;
         public TextView tvName;
         public TextView tvScore;
+        public LinearLayout ll;
         public MyViewHolder(LinearLayout v) {
             super(v);
+            this.ll = v;
             tvDateAdded = v.findViewById(R.id.textDateCompleted);
             tvName = v.findViewById(R.id.textGameCompleted);
             tvScore= v.findViewById(R.id.textScore);
@@ -51,24 +53,6 @@ public class MonAdapteurCompleted extends RecyclerView.Adapter<MonAdapteurComple
         // create a new view
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_completed, parent, false);
 
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), EditGame.class);
-
-                //give the name
-                Bundle bundle = new Bundle();
-                TextView textViewGameName = view.findViewById(R.id.textGameCompleted);
-                TextView textViewScore = view.findViewById(R.id.textScore);
-                bundle.putCharSequence("gameName", textViewGameName.getText());
-                bundle.putCharSequence("score", textViewScore.getText());
-                bundle.putBoolean("Completed", true);
-                i.putExtras(bundle);
-
-                view.getContext().startActivity(i);
-            }
-        });
-
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
@@ -83,6 +67,15 @@ public class MonAdapteurCompleted extends RecyclerView.Adapter<MonAdapteurComple
         holder.tvDateAdded.setText(objetActuel.date);
         holder.tvName.setText(String.valueOf(objetActuel.name));
         holder.tvScore.setText(String.valueOf(objetActuel.score));
+
+        holder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), EditGame.class);
+                i.putExtra("id" , objetActuel.gameId);
+                view.getContext().startActivity(i);
+            }
+        });
 
     }
 

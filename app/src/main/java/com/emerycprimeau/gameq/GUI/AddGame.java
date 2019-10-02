@@ -23,6 +23,7 @@ import com.emerycprimeau.gameq.R;
 import com.emerycprimeau.gameq.http.GameRetrofit;
 import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.CurrentUser;
+import com.emerycprimeau.gameq.models.transfer.GameResponseAdd;
 import com.emerycprimeau.gameq.models.transfer.LogoutRequest;
 import com.emerycprimeau.gameq.models.transfer.LogoutResponse;
 import com.google.android.material.navigation.NavigationView;
@@ -31,10 +32,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class AddGame extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,22 +50,43 @@ public class AddGame extends AppCompatActivity {
         final Button buttonToComplete = findViewById(R.id.buttonToComplete);
         Button buttonOk = findViewById(R.id.buttonOk);
 
-        final EditText editTextScore = findViewById(R.id.Score);
+        final TextView gameName = findViewById(R.id.gameNameAdd);
+        final GameResponseAdd game = new GameResponseAdd();
+        final EditText editTextScore = findViewById(R.id.ScoreAdd);
         editTextScore.setVisibility(View.INVISIBLE);
 
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(editTextScore.getVisibility() == View.VISIBLE )
-                {
-                    Intent intentCompleted = new Intent(getApplicationContext(), Completed.class);
-                    startActivity(intentCompleted);
-                }
-                else
-                {
-                    Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
-                    startActivity(intentMain);
-                }
+                game.name = gameName.getText().toString();
+
+                if( !editTextScore.getText().toString().equals("") && editTextScore.getText().toString().length() > 0 )
+                    game.score = Integer.parseInt(editTextScore.getText().toString());
+
+                serviceMock.toAdd(game).enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        if(response.isSuccessful())
+                        {
+                            if(editTextScore.getVisibility() == View.VISIBLE )
+                            {
+                                Intent intentCompleted = new Intent(getApplicationContext(), Completed.class);
+                                startActivity(intentCompleted);
+                            }
+                            else
+                            {
+                                Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
+                                startActivity(intentMain);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+
+                    }
+                });
+
             }
         });
 
@@ -78,6 +102,8 @@ public class AddGame extends AppCompatActivity {
                 buttonToComplete.setBackgroundColor(Color.LTGRAY);
                 buttonToComplete.setTextColor(Color.BLACK);
 
+                game.estComplete = true;
+
             }
         });
         buttonToComplete.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +116,8 @@ public class AddGame extends AppCompatActivity {
 
                 buttonCompleted.setBackgroundColor(Color.LTGRAY);
                 buttonCompleted.setTextColor(Color.BLACK);
+
+                game.estComplete = false;
             }
         });
         //endregion

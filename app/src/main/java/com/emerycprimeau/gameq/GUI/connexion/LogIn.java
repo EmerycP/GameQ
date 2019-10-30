@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.emerycprimeau.gameq.GUI.toComplete.ToComplete;
 import com.emerycprimeau.gameq.R;
 import com.emerycprimeau.gameq.http.GameRetrofit;
+import com.emerycprimeau.gameq.http.Service;
 import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.CurrentUser;
 import com.emerycprimeau.gameq.models.transfer.LoginRequest;
@@ -33,7 +34,7 @@ public class LogIn extends AppCompatActivity {
         final TextView emailLogin = findViewById(R.id.emailText);
         final TextView passLogin = findViewById(R.id.passwordText);
 
-        final ServiceMock mockService = GameRetrofit.get();
+        final Service Service = GameRetrofit.getReal();
 
 
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +43,7 @@ public class LogIn extends AppCompatActivity {
                 LoginRequest lR = new LoginRequest();
                 lR.email = emailLogin.getText().toString();
                 lR.password = passLogin.getText().toString();
-                mockService.toLogin(lR).enqueue(new Callback<LoginResponse>() {
+                Service.toLogin(lR).enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         if(response.isSuccessful())
@@ -57,7 +58,7 @@ public class LogIn extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Erreur", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Erreur " + t, Toast.LENGTH_SHORT).show();
                     }
                 });
             }

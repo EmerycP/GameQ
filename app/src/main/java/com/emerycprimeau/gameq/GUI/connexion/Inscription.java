@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.emerycprimeau.gameq.GUI.toComplete.ToComplete;
 import com.emerycprimeau.gameq.R;
 import com.emerycprimeau.gameq.http.GameRetrofit;
+import com.emerycprimeau.gameq.http.Service;
 import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.CurrentUser;
 import com.emerycprimeau.gameq.models.transfer.LoginResponse;
@@ -28,7 +29,7 @@ public class Inscription extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
-        final ServiceMock mockService = GameRetrofit.get();
+        final Service s = GameRetrofit.getReal();
 
         Button buttonLogIn = findViewById(R.id.bSingUp);
         final TextView emailSign = findViewById(R.id.emailTextSign);
@@ -39,24 +40,24 @@ public class Inscription extends AppCompatActivity {
                 SignupRequest sR = new SignupRequest();
                 sR.email = emailSign.getText().toString();
                 sR.password = passSign.getText().toString();
-                mockService.toSignUp(sR).enqueue(new Callback<LoginResponse>() {
-                    @Override
-                    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                        if(response.isSuccessful())
-                        {
-                            CurrentUser.currentId = response.body().Id;
-                            CurrentUser.email = response.body().emailCleaned;
-                            Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
-                            startActivity(intentMain);
-                            Toast.makeText(getApplicationContext(), "Bonjour " + CurrentUser.email + " !", Toast.LENGTH_SHORT).show();
-                        }
-                    }
 
-                    @Override
-                    public void onFailure(Call<LoginResponse> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Erreur!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        s.toSignUp(sR).enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+
+                CurrentUser.currentId = response.body().Id;
+                CurrentUser.email = response.body().emailCleaned;
+                Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
+                startActivity(intentMain);
+                Toast.makeText(getApplicationContext(), "Bonjour " + CurrentUser.email + " !", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+
+                Toast.makeText(getApplicationContext(), "Erreur! " + t, Toast.LENGTH_SHORT).show();
+            }
+        });
             }
 
         });

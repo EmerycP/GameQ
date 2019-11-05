@@ -1,5 +1,6 @@
 package com.emerycprimeau.gameq.http;
 
+import com.emerycprimeau.gameq.models.Game;
 import com.emerycprimeau.gameq.models.transfer.GameCompletedResponse;
 import com.emerycprimeau.gameq.models.transfer.GameRequest;
 import com.emerycprimeau.gameq.models.transfer.GameRequestEdit;
@@ -28,11 +29,11 @@ public interface Service {
     @POST("signup")
     Call<LoginResponse> toSignUp (@Body SignupRequest logR);
 
-    @GET("getToComplete")
-    Call<List<GameToCompleteResponse>> getToCompleteList (GameRequest gR);
+    @GET("gameToComplete/{userId}")
+    Call<List<Game>> getToCompleteList (@Path("userId") int userId);
 
-    @GET("getCompleted")
-    Call<List<GameCompletedResponse>> getCompletedList (GameRequest gR);
+    @GET("gameCompleted/{userId}")
+    Call<List<Game>> getCompletedList (@Path("userId") int userId);
 
     @POST("logOut")
     Call<LogoutResponse> toLogOut (LogoutRequest logoutRequest);

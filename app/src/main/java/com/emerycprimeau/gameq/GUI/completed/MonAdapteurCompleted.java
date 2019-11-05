@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emerycprimeau.gameq.GUI.EditGame;
 import com.emerycprimeau.gameq.R;
+import com.emerycprimeau.gameq.models.Game;
 import com.emerycprimeau.gameq.models.transfer.GameCompletedResponse;
 
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class MonAdapteurCompleted extends RecyclerView.Adapter<MonAdapteurCompleted.MyViewHolder>{
     public Context context;
-    public List<GameCompletedResponse> mDataset;
+    public List<Game> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -41,7 +42,7 @@ public class MonAdapteurCompleted extends RecyclerView.Adapter<MonAdapteurComple
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MonAdapteurCompleted(List<GameCompletedResponse> pDataset, Context ctx) {
+    public MonAdapteurCompleted(List<Game> pDataset, Context ctx) {
         mDataset = pDataset;
         this.context = ctx;
     }
@@ -62,17 +63,17 @@ public class MonAdapteurCompleted extends RecyclerView.Adapter<MonAdapteurComple
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final GameCompletedResponse objetActuel = mDataset.get(position);
+        final Game objetActuel = mDataset.get(position);
 
         holder.tvDateAdded.setText(objetActuel.date);
-        holder.tvName.setText(String.valueOf(objetActuel.name));
-        holder.tvScore.setText(String.valueOf(objetActuel.score));
+        holder.tvName.setText(String.valueOf(objetActuel.Name));
+        holder.tvScore.setText(String.valueOf(objetActuel.Score));
 
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), EditGame.class);
-                i.putExtra("id" , objetActuel.gameId);
+                i.putExtra("id" , objetActuel.ID);
                 view.getContext().startActivity(i);
             }
         });

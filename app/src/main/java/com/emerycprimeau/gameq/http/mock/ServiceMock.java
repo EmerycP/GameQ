@@ -25,10 +25,10 @@ public interface ServiceMock {
     @POST("signup")
     Call<LoginResponse> toSignUp (LoginRequest logR);
 
-    @GET("getToComplete")
+    @GET("gameToComplete")
     Call<List<GameToCompleteResponse>> getToCompleteList (GameRequest gR);
 
-    @GET("getCompleted")
+    @GET("gameCompleted")
     Call<List<GameCompletedResponse>> getCompletedList (GameRequest gR);
 
     @POST("logOut")

@@ -20,8 +20,10 @@ import com.emerycprimeau.gameq.GUI.completed.Completed;
 import com.emerycprimeau.gameq.GUI.connexion.LogIn;
 import com.emerycprimeau.gameq.R;
 import com.emerycprimeau.gameq.http.GameRetrofit;
+import com.emerycprimeau.gameq.http.Service;
 import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.CurrentUser;
+import com.emerycprimeau.gameq.models.Game;
 import com.emerycprimeau.gameq.models.transfer.GameRequest;
 import com.emerycprimeau.gameq.models.transfer.GameToCompleteResponse;
 import com.emerycprimeau.gameq.models.transfer.LogoutRequest;
@@ -48,6 +50,7 @@ public class ToComplete extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.to_complete);
+        final Service service = GameRetrofit.getReal();
         final ServiceMock serviceMock = GameRetrofit.get();
 
         //region recyclerView
@@ -57,11 +60,9 @@ public class ToComplete extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        GameRequest game = new GameRequest();
-        game.userId = CurrentUser.currentId;
-        serviceMock.getToCompleteList(game).enqueue(new Callback<List<GameToCompleteResponse>>() {
+        service.getToCompleteList(CurrentUser.currentId).enqueue(new Callback<List<Game>>() {
             @Override
-            public void onResponse(Call<List<GameToCompleteResponse>> call, Response<List<GameToCompleteResponse>> response) {
+            public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
                 if(response.isSuccessful())
                 {
                     mAdapter = new MonAdapteurToComplete(response.body(), getApplicationContext());
@@ -69,7 +70,7 @@ public class ToComplete extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<List<GameToCompleteResponse>> call, Throwable t) {
+            public void onFailure(Call<List<Game>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
             }
         });

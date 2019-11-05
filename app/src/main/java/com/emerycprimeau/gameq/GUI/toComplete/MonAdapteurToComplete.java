@@ -15,6 +15,7 @@ import com.emerycprimeau.gameq.GUI.EditGame;
 import com.emerycprimeau.gameq.R;
 import com.emerycprimeau.gameq.http.GameRetrofit;
 import com.emerycprimeau.gameq.http.mock.ServiceMock;
+import com.emerycprimeau.gameq.models.Game;
 import com.emerycprimeau.gameq.models.transfer.GameResponseEdit;
 import com.emerycprimeau.gameq.models.transfer.GameToCompleteResponse;
 
@@ -27,7 +28,7 @@ import retrofit2.Response;
 
 public class MonAdapteurToComplete extends RecyclerView.Adapter<MonAdapteurToComplete.MyViewHolder>{
     public Context context;
-    public List<GameToCompleteResponse> mDataset;
+    public List<Game> mDataset;
     public ServiceMock serviceMock = GameRetrofit.get();
     public Bundle bundle;
     public TextView textViewGameName;
@@ -50,7 +51,7 @@ public class MonAdapteurToComplete extends RecyclerView.Adapter<MonAdapteurToCom
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MonAdapteurToComplete(List<GameToCompleteResponse> pDataset, Context ctx) {
+    public MonAdapteurToComplete(List<Game> pDataset, Context ctx) {
         mDataset = pDataset;
         this.context = ctx;
     }
@@ -73,15 +74,15 @@ public class MonAdapteurToComplete extends RecyclerView.Adapter<MonAdapteurToCom
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final GameToCompleteResponse objetActuel = mDataset.get(position);
+        final Game objetActuel = mDataset.get(position);
 
         holder.tvDateAdded.setText(objetActuel.date);
-        holder.tvName.setText(String.valueOf(objetActuel.name));
+        holder.tvName.setText(String.valueOf(objetActuel.Name));
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), EditGame.class);
-                i.putExtra("id" , objetActuel.gameId);
+                i.putExtra("id" , objetActuel.ID);
                 view.getContext().startActivity(i);
             }
         });

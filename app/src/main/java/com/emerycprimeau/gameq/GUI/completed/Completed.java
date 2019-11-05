@@ -20,8 +20,10 @@ import com.emerycprimeau.gameq.GUI.connexion.LogIn;
 import com.emerycprimeau.gameq.GUI.toComplete.ToComplete;
 import com.emerycprimeau.gameq.R;
 import com.emerycprimeau.gameq.http.GameRetrofit;
+import com.emerycprimeau.gameq.http.Service;
 import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.CurrentUser;
+import com.emerycprimeau.gameq.models.Game;
 import com.emerycprimeau.gameq.models.transfer.GameCompletedResponse;
 import com.emerycprimeau.gameq.models.transfer.GameRequest;
 import com.emerycprimeau.gameq.models.transfer.LogoutRequest;
@@ -50,7 +52,7 @@ public class Completed extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.completed);
         final ServiceMock serviceMock = GameRetrofit.get();
-
+        final Service service = GameRetrofit.getReal();
 
         //region recyclerView
 
@@ -62,12 +64,10 @@ public class Completed extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        GameRequest gameRequest = new GameRequest();
-        gameRequest.userId = CurrentUser.currentId;
 
-        serviceMock.getCompletedList(gameRequest).enqueue(new Callback<List<GameCompletedResponse>>() {
+        service.getCompletedList(CurrentUser.currentId).enqueue(new Callback<List<Game>>() {
             @Override
-            public void onResponse(Call<List<GameCompletedResponse>> call, Response<List<GameCompletedResponse>> response) {
+            public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
                 if(response.isSuccessful())
                 {
                     mAdapter = new MonAdapteurCompleted(response.body(), getApplicationContext());
@@ -76,7 +76,7 @@ public class Completed extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<GameCompletedResponse>> call, Throwable t) {
+            public void onFailure(Call<List<Game>> call, Throwable t) {
 
             }
         });

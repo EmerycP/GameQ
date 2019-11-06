@@ -44,7 +44,9 @@ public interface Service {
     @POST("GameEdited")
     Call<Boolean> toEdit(GameRequestEdit gameRequestEdit);
 
-    @POST("GameAdded")
-    Call<Boolean> toAdd(GameResponseAdd gameResponseAdd);
+    @POST("GameAdded/{userId}")
+    Call<Boolean> toAdd(@Path("userId") int userId, @Body Game game);
+
+
 
 }

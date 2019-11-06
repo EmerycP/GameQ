@@ -24,6 +24,7 @@ import com.emerycprimeau.gameq.http.GameRetrofit;
 import com.emerycprimeau.gameq.http.Service;
 import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.CurrentUser;
+import com.emerycprimeau.gameq.models.Game;
 import com.emerycprimeau.gameq.models.transfer.GameResponseAdd;
 import com.emerycprimeau.gameq.models.transfer.LogoutRequest;
 import com.emerycprimeau.gameq.models.transfer.LogoutResponse;
@@ -44,8 +45,6 @@ public class AddGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_game);
-        final ServiceMock serviceMock = GameRetrofit.get();
-
 
         final Service service = GameRetrofit.getReal();
 
@@ -55,19 +54,21 @@ public class AddGame extends AppCompatActivity {
         Button buttonOk = findViewById(R.id.buttonOk);
 
         final TextView gameName = findViewById(R.id.gameNameAdd);
-        final GameResponseAdd game = new GameResponseAdd();
+        final Game gameR = new Game();
         final EditText editTextScore = findViewById(R.id.ScoreAdd);
         editTextScore.setVisibility(View.INVISIBLE);
 
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                game.name = gameName.getText().toString();
+
+
+                gameR.Name = gameName.getText().toString();
 
                 if( !editTextScore.getText().toString().equals("") && editTextScore.getText().toString().length() > 0 )
-                    game.score = Integer.parseInt(editTextScore.getText().toString());
+                    gameR.Score = Integer.parseInt(editTextScore.getText().toString());
 
-                serviceMock.toAdd(game).enqueue(new Callback<Boolean>() {
+                service.toAdd(CurrentUser.currentId, gameR).enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         if(response.isSuccessful())
@@ -79,6 +80,7 @@ public class AddGame extends AppCompatActivity {
                             }
                             else
                             {
+                                gameR.Score = 0;
                                 Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
                                 startActivity(intentMain);
                             }
@@ -106,7 +108,7 @@ public class AddGame extends AppCompatActivity {
                 buttonToComplete.setBackgroundColor(Color.LTGRAY);
                 buttonToComplete.setTextColor(Color.BLACK);
 
-                game.estComplete = true;
+                gameR.EstCompleter = true;
 
             }
         });
@@ -121,7 +123,8 @@ public class AddGame extends AppCompatActivity {
                 buttonCompleted.setBackgroundColor(Color.LTGRAY);
                 buttonCompleted.setTextColor(Color.BLACK);
 
-                game.estComplete = false;
+                gameR.EstCompleter = false;
+                gameR.Score = 0;
             }
         });
         //endregion

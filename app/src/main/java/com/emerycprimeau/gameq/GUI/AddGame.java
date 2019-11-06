@@ -21,6 +21,7 @@ import com.emerycprimeau.gameq.GUI.connexion.LogIn;
 import com.emerycprimeau.gameq.GUI.toComplete.ToComplete;
 import com.emerycprimeau.gameq.R;
 import com.emerycprimeau.gameq.http.GameRetrofit;
+import com.emerycprimeau.gameq.http.Service;
 import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.CurrentUser;
 import com.emerycprimeau.gameq.models.transfer.GameResponseAdd;
@@ -44,6 +45,9 @@ public class AddGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_game);
         final ServiceMock serviceMock = GameRetrofit.get();
+
+
+        final Service service = GameRetrofit.getReal();
 
         //region Buttons
         final Button buttonCompleted = findViewById(R.id.buttonComplete);
@@ -151,9 +155,10 @@ public class AddGame extends AppCompatActivity {
                     startActivity(intentAdd);
                 } else if (id == R.id.nav_LogOut) {
                     LogoutRequest lR = new LogoutRequest();
-                    serviceMock.toLogOut(lR).enqueue(new Callback<LogoutResponse>() {
+                    lR.userID = CurrentUser.currentId;
+                    service.toLogOut(lR).enqueue(new Callback<Boolean>() {
                         @Override
-                        public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                             if(response.isSuccessful())
                             {
                                 Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
@@ -163,7 +168,7 @@ public class AddGame extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                        public void onFailure(Call<Boolean> call, Throwable t) {
                             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                         }
                     });

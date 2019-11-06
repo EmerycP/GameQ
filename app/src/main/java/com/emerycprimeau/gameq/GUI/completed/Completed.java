@@ -51,7 +51,6 @@ public class Completed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.completed);
-        final ServiceMock serviceMock = GameRetrofit.get();
         final Service service = GameRetrofit.getReal();
 
         //region recyclerView
@@ -124,9 +123,10 @@ public class Completed extends AppCompatActivity {
                     startActivity(intentAdd);
                 } else if (id == R.id.nav_LogOut) {
                     LogoutRequest lR = new LogoutRequest();
-                    serviceMock.toLogOut(lR).enqueue(new Callback<LogoutResponse>() {
+                    lR.userID = CurrentUser.currentId;
+                    service.toLogOut(lR).enqueue(new Callback<Boolean>() {
                         @Override
-                        public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                             if(response.isSuccessful())
                             {
                                 Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
@@ -136,7 +136,7 @@ public class Completed extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                        public void onFailure(Call<Boolean> call, Throwable t) {
                             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                         }
                     });

@@ -51,7 +51,6 @@ public class ToComplete extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.to_complete);
         final Service service = GameRetrofit.getReal();
-        final ServiceMock serviceMock = GameRetrofit.get();
 
         //region recyclerView
         recyclerView = findViewById(R.id.recyclerViewToComplete);
@@ -119,19 +118,20 @@ public class ToComplete extends AppCompatActivity {
                     startActivity(intentAdd);
                 } else if (id == R.id.nav_LogOut) {
                     LogoutRequest lR = new LogoutRequest();
-                    serviceMock.toLogOut(lR).enqueue(new Callback<LogoutResponse>() {
+                    lR.userID = CurrentUser.currentId;
+                    service.toLogOut(lR).enqueue(new Callback<Boolean>() {
                         @Override
-                        public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                             if(response.isSuccessful())
                             {
                                 Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
-                            startActivity(intentLogIn);
-                            Toast.makeText(getApplicationContext(), "Au revoir " + CurrentUser.email + " !", Toast.LENGTH_SHORT).show();
-                        }
+                                startActivity(intentLogIn);
+                                Toast.makeText(getApplicationContext(), "Au revoir " + CurrentUser.email + " !", Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
-                        public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                        public void onFailure(Call<Boolean> call, Throwable t) {
                             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                         }
                     });

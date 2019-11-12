@@ -38,11 +38,11 @@ public interface Service {
     @POST("logout")
     Call<Boolean> toLogOut (@Body LogoutRequest logoutRequest);
 
-    @GET("GameEdit")
-    Call<GameResponseEdit> getToEdit (int gameID);
+    @GET("toEdit/{userId}/{gameId}")
+    Call<Game> getToEdit (@Path("userId") int userId, @Path("gameId") int gameId);
 
     @POST("GameEdited")
-    Call<Boolean> toEdit(GameRequestEdit gameRequestEdit);
+    Call<Boolean> gameEdit(@Body GameRequestEdit gameRequestEdit);
 
     @POST("GameAdded/{userId}")
     Call<Boolean> toAdd(@Path("userId") int userId, @Body Game game);

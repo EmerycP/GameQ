@@ -24,6 +24,7 @@ import com.emerycprimeau.gameq.http.GameRetrofit;
 import com.emerycprimeau.gameq.http.Service;
 import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.CurrentUser;
+import com.emerycprimeau.gameq.models.Game;
 import com.emerycprimeau.gameq.models.transfer.GameRequestEdit;
 import com.emerycprimeau.gameq.models.transfer.GameResponseEdit;
 import com.emerycprimeau.gameq.models.transfer.LogoutRequest;
@@ -39,6 +40,7 @@ public class EditGame extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private ServiceMock serviceMock = GameRetrofit.get();
     private GameRequestEdit game = new GameRequestEdit();
+    private Game gameR = new Game();
     private String name;
     public int score;
     public Button buttonCompleted;
@@ -66,20 +68,22 @@ public class EditGame extends AppCompatActivity {
 
         Intent i = getIntent();
         int idIntent = i.getIntExtra("id", 0);
-        serviceMock.getToEdit(idIntent).enqueue(new Callback<GameResponseEdit>() {
+        service.getToEdit(CurrentUser.currentId, idIntent).enqueue(new Callback<Game>() {
             @Override
-            public void onResponse(Call<GameResponseEdit> call, Response<GameResponseEdit> response) {
+            public void onResponse(Call<Game> call, Response<Game> response) {
                 if (response.isSuccessful()) {
                     gestionGameReponse(response.body());
-                    game.gameID = response.body().gameID;
-                    game.name = response.body().name;
-                    game.estComplete = response.body().estComplete;
-                    game.score = response.body().score;
+                    gameR.ID = response.body().ID;
+                    game.gameID = response.body().ID;
+                    game.userID = CurrentUser.currentId;
+                    gameR.Name = response.body().Name;
+                    gameR.EstCompleter = response.body().EstCompleter;
+                    gameR.Score = response.body().Score;
                 }
             }
 
             @Override
-            public void onFailure(Call<GameResponseEdit> call, Throwable t) {
+            public void onFailure(Call<Game> call, Throwable t) {
 
             }
         });
@@ -88,15 +92,17 @@ public class EditGame extends AppCompatActivity {
             public void onClick(View view) {
                 if(editTextScore.getVisibility() == View.VISIBLE )
                 {
+
                     game.name = gameName.getText().toString();
+                    game.estComplete = true;
                     if( !editTextScore.getText().toString().equals("") && editTextScore.getText().toString().length() > 0 )
                         game.score = Integer.parseInt(editTextScore.getText().toString());
-                    serviceMock.toEdit(game).enqueue(new Callback<Boolean>() {
+                    service.gameEdit(game).enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                             Intent intentCompleted = new Intent(getApplicationContext(), Completed.class);
                             startActivity(intentCompleted);
-                            Toast.makeText(getApplicationContext(), "Le jeu " + game.name + " été modifié.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Le jeu " + gameR.Name + " été modifié.", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -108,8 +114,21 @@ public class EditGame extends AppCompatActivity {
                 }
                 else
                 {
-                    Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
-                    startActivity(intentMain);
+                    game.name = gameName.getText().toString();
+                    game.estComplete = false;
+                    service.gameEdit(game).enqueue(new Callback<Boolean>() {
+                        @Override
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                            Intent intentCompleted = new Intent(getApplicationContext(), ToComplete.class);
+                            startActivity(intentCompleted);
+                            Toast.makeText(getApplicationContext(), "Le jeu " + gameR.Name + " été modifié.", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<Boolean> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Erreur", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });
@@ -126,8 +145,8 @@ public class EditGame extends AppCompatActivity {
                 buttonToComplete.setBackgroundColor(Color.LTGRAY);
                 buttonToComplete.setTextColor(Color.BLACK);
 
-                game.estComplete = true;
-                editTextScore.setText(game.score+"");
+                gameR.EstCompleter = true;
+                editTextScore.setText(gameR.Score+"");
 
             }
         });
@@ -142,7 +161,7 @@ public class EditGame extends AppCompatActivity {
                 buttonCompleted.setBackgroundColor(Color.LTGRAY);
                 buttonCompleted.setTextColor(Color.BLACK);
 
-                game.estComplete = false;
+                gameR.EstCompleter = false;
                 editTextScore.setText("0");
             }
         });
@@ -222,9 +241,9 @@ public class EditGame extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void gestionGameReponse(GameResponseEdit pResponse)
+    public void gestionGameReponse(Game pResponse)
     {
-        if(pResponse.estComplete)
+        if(pResponse.EstCompleter)
         {
             editTextScore.setVisibility(View.VISIBLE);
 
@@ -234,8 +253,8 @@ public class EditGame extends AppCompatActivity {
             buttonToComplete.setBackgroundColor(Color.LTGRAY);
             buttonToComplete.setTextColor(Color.BLACK);
 
-            gameName.setText(pResponse.name);
-            editTextScore.setText(pResponse.score+"");
+            gameName.setText(pResponse.Name);
+            editTextScore.setText(pResponse.Score+"");
         }
         else
         {
@@ -246,7 +265,7 @@ public class EditGame extends AppCompatActivity {
 
             buttonCompleted.setBackgroundColor(Color.LTGRAY);
             buttonCompleted.setTextColor(Color.BLACK);
-            gameName.setText(pResponse.name);
+            gameName.setText(pResponse.Name);
         }
     }
 }

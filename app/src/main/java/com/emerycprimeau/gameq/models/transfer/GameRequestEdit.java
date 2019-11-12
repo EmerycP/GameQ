@@ -4,6 +4,7 @@ public class GameRequestEdit {
 
     public int gameID;
     public String name;
+    public int userID;
     public int score;
     public boolean estComplete;
 }

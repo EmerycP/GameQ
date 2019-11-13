@@ -13,7 +13,6 @@ import com.emerycprimeau.gameq.GUI.toComplete.ToComplete;
 import com.emerycprimeau.gameq.R;
 import com.emerycprimeau.gameq.http.GameRetrofit;
 import com.emerycprimeau.gameq.http.Service;
-import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.CurrentUser;
 import com.emerycprimeau.gameq.models.transfer.LoginRequest;
 import com.emerycprimeau.gameq.models.transfer.LoginResponse;
@@ -31,7 +30,7 @@ public class LogIn extends AppCompatActivity {
 
         TextView buttonSignUp = findViewById(R.id.signUp);
         Button buttonLogIn = findViewById(R.id.bLogIn);
-        final TextView emailLogin = findViewById(R.id.emailText);
+        final TextView userLogin = findViewById(R.id.userText);
         final TextView passLogin = findViewById(R.id.passwordText);
 
         final Service Service = GameRetrofit.getReal();
@@ -41,7 +40,7 @@ public class LogIn extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LoginRequest lR = new LoginRequest();
-                lR.email = emailLogin.getText().toString();
+                lR.user = userLogin.getText().toString();
                 lR.password = passLogin.getText().toString();
                 Service.toLogin(lR).enqueue(new Callback<LoginResponse>() {
                     @Override
@@ -49,10 +48,24 @@ public class LogIn extends AppCompatActivity {
                         if(response.isSuccessful())
                         {
                             CurrentUser.currentId = response.body().Id;
-                            CurrentUser.email = response.body().emailCleaned;
+                            CurrentUser.user = response.body().emailCleaned;
                             Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
                             startActivity(intentMain);
-                            Toast.makeText(getApplicationContext(), "Bonjour " + CurrentUser.email + " !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Bonjour " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            try {
+                                String mess = response.errorBody().string();
+                                if(mess.equals("BlankException"))
+                                    Toast.makeText(LogIn.this, "Au moins un des champs est vide.", Toast.LENGTH_SHORT).show();
+                                if(mess.equals("NoMatch"))
+                                    Toast.makeText(LogIn.this, "Le nom d'utilisateur et le mot de passe ne correspondent pas.", Toast.LENGTH_SHORT).show();
+                            }
+                            catch(Exception e)
+                            {
+                                e.printStackTrace();
+                            }
                         }
                     }
 

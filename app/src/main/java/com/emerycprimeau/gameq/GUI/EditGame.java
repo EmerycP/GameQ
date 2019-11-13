@@ -17,6 +17,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.emerycprimeau.gameq.GUI.completed.Completed;
+import com.emerycprimeau.gameq.GUI.connexion.Inscription;
 import com.emerycprimeau.gameq.GUI.connexion.LogIn;
 import com.emerycprimeau.gameq.GUI.toComplete.ToComplete;
 import com.emerycprimeau.gameq.R;
@@ -26,9 +27,7 @@ import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.CurrentUser;
 import com.emerycprimeau.gameq.models.Game;
 import com.emerycprimeau.gameq.models.transfer.GameRequestEdit;
-import com.emerycprimeau.gameq.models.transfer.GameResponseEdit;
 import com.emerycprimeau.gameq.models.transfer.LogoutRequest;
-import com.emerycprimeau.gameq.models.transfer.LogoutResponse;
 import com.google.android.material.navigation.NavigationView;
 
 import retrofit2.Call;
@@ -80,6 +79,20 @@ public class EditGame extends AppCompatActivity {
                     gameR.EstCompleter = response.body().EstCompleter;
                     gameR.Score = response.body().Score;
                 }
+                else
+                {
+                    try {
+                        String mess = response.errorBody().string();
+                        if(mess.equals("GameSelectedDontExist"))
+                            Toast.makeText(EditGame.this, "Le jeu sélectionné n'existe pas.", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    catch(Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
@@ -100,9 +113,35 @@ public class EditGame extends AppCompatActivity {
                     service.gameEdit(game).enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                            Intent intentCompleted = new Intent(getApplicationContext(), Completed.class);
-                            startActivity(intentCompleted);
-                            Toast.makeText(getApplicationContext(), "Le jeu " + gameR.Name + " été modifié.", Toast.LENGTH_SHORT).show();
+                            if(response.isSuccessful()) {
+
+
+                                Intent intentCompleted = new Intent(getApplicationContext(), Completed.class);
+                                startActivity(intentCompleted);
+                                Toast.makeText(getApplicationContext(), "Le jeu " + gameR.Name + " été modifié.", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                try {
+                                    String mess = response.errorBody().string();
+                                    if(mess.equals("GameExist"))
+                                        Toast.makeText(EditGame.this, "Le jeu portant ce nom fait déjà partie de votre liste.", Toast.LENGTH_SHORT).show();
+                                    if(mess.equals("Score"))
+                                        Toast.makeText(EditGame.this, "Le score doit être en 0 et 100", Toast.LENGTH_SHORT).show();
+                                    if(mess.equals("MaxLength"))
+                                        Toast.makeText(EditGame.this, "Le nom du jeu ne doit pas être au dessus de 80 caractères. Actuel: " + gameName.length(), Toast.LENGTH_SHORT).show();
+                                    if(mess.equals("BlankException"))
+                                        Toast.makeText(EditGame.this, "Le champs du nom du jeu est vide.", Toast.LENGTH_SHORT).show();
+                                    if(mess.equals("BlankScore"))
+                                        Toast.makeText(EditGame.this, "Le champs du score est vide.", Toast.LENGTH_SHORT).show();
+                                }
+
+                                catch(Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+                            }
+
                         }
 
                         @Override
@@ -119,9 +158,35 @@ public class EditGame extends AppCompatActivity {
                     service.gameEdit(game).enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                            Intent intentCompleted = new Intent(getApplicationContext(), ToComplete.class);
-                            startActivity(intentCompleted);
-                            Toast.makeText(getApplicationContext(), "Le jeu " + gameR.Name + " été modifié.", Toast.LENGTH_SHORT).show();
+                            if(response.isSuccessful())
+                            {
+                                Intent intentCompleted = new Intent(getApplicationContext(), ToComplete.class);
+                                startActivity(intentCompleted);
+                                Toast.makeText(getApplicationContext(), "Le jeu " + gameR.Name + " été modifié.", Toast.LENGTH_SHORT).show();
+
+                            }
+                            else
+                            {
+                                try {
+                                    String mess = response.errorBody().string();
+                                    if(mess.equals("GameExist"))
+                                        Toast.makeText(EditGame.this, "Le jeu portant ce nom fait déjà partie de votre liste.", Toast.LENGTH_SHORT).show();
+                                    if(mess.equals("Score"))
+                                        Toast.makeText(EditGame.this, "Le score doit être en 0 et 100", Toast.LENGTH_SHORT).show();
+                                    if(mess.equals("MaxLength"))
+                                        Toast.makeText(EditGame.this, "Le nom du jeu ne doit pas être au dessus de 80 caractères. Actuel: " + gameName.length(), Toast.LENGTH_SHORT).show();
+                                    if(mess.equals("BlankException"))
+                                        Toast.makeText(EditGame.this, "Le champs du nom du jeu est vide.", Toast.LENGTH_SHORT).show();
+                                    if(mess.equals("BlankScore"))
+                                        Toast.makeText(EditGame.this, "Le champs du score est vide.", Toast.LENGTH_SHORT).show();
+                                }
+
+                                catch(Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+                            }
+
                         }
 
                         @Override
@@ -175,7 +240,7 @@ public class EditGame extends AppCompatActivity {
         //Set le nom de la personne connecté
         View headerView = navigationView.getHeaderView(0);
         TextView nameLog = (TextView) headerView.findViewById(R.id.logInName);
-        nameLog.setText(CurrentUser.email);
+        nameLog.setText(CurrentUser.user);
 
 
         if(getSupportActionBar() != null)
@@ -204,8 +269,24 @@ public class EditGame extends AppCompatActivity {
                             {
                                 Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                 startActivity(intentLogIn);
-                                Toast.makeText(getApplicationContext(), "Au revoir " + CurrentUser.email + " !", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Au revoir " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
                             }
+                            else
+
+                                try {
+                                    String mess = response.errorBody().string();
+                                    if(mess.equals("NoUserConnected"))
+                                    {
+                                        Toast.makeText(EditGame.this, "Il n'y a présentement aucun utilisateur de connecté. Retour à l'écran de connexion.", Toast.LENGTH_SHORT).show();
+                                        Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
+                                        startActivity(intentLogIn);
+                                    }
+
+                                }
+                                catch(Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
                         }
 
                         @Override
@@ -266,6 +347,7 @@ public class EditGame extends AppCompatActivity {
             buttonCompleted.setBackgroundColor(Color.LTGRAY);
             buttonCompleted.setTextColor(Color.BLACK);
             gameName.setText(pResponse.Name);
+            editTextScore.setText("0");
         }
     }
 }

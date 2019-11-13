@@ -73,7 +73,9 @@ public class MonAdapteurCompleted extends RecyclerView.Adapter<MonAdapteurComple
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), EditGame.class);
-                i.putExtra("id" , objetActuel.ID);
+                if(objetActuel.ID >= 0)
+                    i.putExtra("id" , objetActuel.ID);
+
                 view.getContext().startActivity(i);
             }
         });

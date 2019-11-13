@@ -26,11 +26,11 @@
         >
 
         <EditText
-            android:id="@+id/emailText"
+            android:id="@+id/userText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/email"
+            android:hint="@string/user"
             android:inputType="textEmailAddress"
             android:layout_margin="25dp"/>
 

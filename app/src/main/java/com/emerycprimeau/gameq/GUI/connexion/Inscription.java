@@ -13,10 +13,11 @@ import com.emerycprimeau.gameq.GUI.toComplete.ToComplete;
 import com.emerycprimeau.gameq.R;
 import com.emerycprimeau.gameq.http.GameRetrofit;
 import com.emerycprimeau.gameq.http.Service;
-import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.CurrentUser;
 import com.emerycprimeau.gameq.models.transfer.LoginResponse;
 import com.emerycprimeau.gameq.models.transfer.SignupRequest;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,24 +33,44 @@ public class Inscription extends AppCompatActivity {
         final Service s = GameRetrofit.getReal();
 
         Button buttonLogIn = findViewById(R.id.bSingUp);
-        final TextView emailSign = findViewById(R.id.emailTextSign);
+        final TextView userSign = findViewById(R.id.emailTextSign);
         final TextView passSign = findViewById(R.id.passwordTextSign);
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SignupRequest sR = new SignupRequest();
-                sR.email = emailSign.getText().toString();
+                sR.user = userSign.getText().toString();
                 sR.password = passSign.getText().toString();
 
         s.toSignUp(sR).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                CurrentUser.currentId = response.body().Id;
-                CurrentUser.email = response.body().emailCleaned;
-                Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
-                startActivity(intentMain);
-                Toast.makeText(getApplicationContext(), "Bonjour " + CurrentUser.email + " !", Toast.LENGTH_SHORT).show();
+                if(response.isSuccessful()) {
+                    CurrentUser.currentId = response.body().Id;
+                    CurrentUser.user = response.body().emailCleaned;
+                    Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
+                    startActivity(intentMain);
+                    Toast.makeText(getApplicationContext(), "Bonjour " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    try {
+                        String mess = response.errorBody().string();
+                        if(mess.equals("BlankException"))
+                            Toast.makeText(Inscription.this, "Au moins un des champs est vide.", Toast.LENGTH_SHORT).show();
+                        if(mess.equals("UsernameExist"))
+                            Toast.makeText(Inscription.this, "Le nom d'utilisateur existe déjà.", Toast.LENGTH_SHORT).show();
+                        if(mess.equals("NoSpace"))
+                            Toast.makeText(Inscription.this, "Les champs ne peuvent pas contenir d'espace.", Toast.LENGTH_SHORT).show();
+                        if(mess.equals("MaxLength"))
+                            Toast.makeText(Inscription.this, "La limite de caractère des champs est de 20.", Toast.LENGTH_SHORT).show();
+                    }
+                    catch(Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override

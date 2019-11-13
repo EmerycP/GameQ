@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:visibility="invisible"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintTop_toBottomOf="@+id/buttonComplete" />
         <Button
             android:id="@+id/buttonOk"

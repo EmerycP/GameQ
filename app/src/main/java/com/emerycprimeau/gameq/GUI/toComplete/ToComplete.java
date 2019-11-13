@@ -16,18 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emerycprimeau.gameq.GUI.AddGame;
+import com.emerycprimeau.gameq.GUI.EditGame;
 import com.emerycprimeau.gameq.GUI.completed.Completed;
 import com.emerycprimeau.gameq.GUI.connexion.LogIn;
 import com.emerycprimeau.gameq.R;
 import com.emerycprimeau.gameq.http.GameRetrofit;
 import com.emerycprimeau.gameq.http.Service;
-import com.emerycprimeau.gameq.http.mock.ServiceMock;
 import com.emerycprimeau.gameq.models.CurrentUser;
 import com.emerycprimeau.gameq.models.Game;
-import com.emerycprimeau.gameq.models.transfer.GameRequest;
-import com.emerycprimeau.gameq.models.transfer.GameToCompleteResponse;
 import com.emerycprimeau.gameq.models.transfer.LogoutRequest;
-import com.emerycprimeau.gameq.models.transfer.LogoutResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -97,7 +94,7 @@ public class ToComplete extends AppCompatActivity {
         //Set le nom de la personne connecté
         View headerView = navigationView.getHeaderView(0);
         TextView nameLog = (TextView) headerView.findViewById(R.id.logInName);
-        nameLog.setText(CurrentUser.email);
+        nameLog.setText(CurrentUser.user);
 
 
         if(getSupportActionBar() != null)
@@ -126,8 +123,24 @@ public class ToComplete extends AppCompatActivity {
                             {
                                 Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                 startActivity(intentLogIn);
-                                Toast.makeText(getApplicationContext(), "Au revoir " + CurrentUser.email + " !", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Au revoir " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
                             }
+                            else
+
+                                try {
+                                    String mess = response.errorBody().string();
+                                    if(mess.equals("NoUserConnected"))
+                                    {
+                                        Toast.makeText(ToComplete.this, "Il n'y a présentement aucun utilisateur de connecté. Retour à l'écran de connexion.", Toast.LENGTH_SHORT).show();
+                                        Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
+                                        startActivity(intentLogIn);
+                                    }
+
+                                }
+                                catch(Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
                         }
 
                         @Override

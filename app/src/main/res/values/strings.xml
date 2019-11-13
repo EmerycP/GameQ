@@ -3,12 +3,12 @@
     <string name="gameq">GameQ!</string>
     <string name="logo">logo</string>
     <string name="log_in">Log In</string>
-    <string name="email">Email</string>
+    <string name="user">Username</string>
     <string name="password">Password</string>
     <string name="signUp">No account? Sign Up!</string>
     <string name="sign_up">Sign Up</string>
     <string name="confirm_password">Confirm password</string>
-    <string name="valid_email">Valid Email</string>
+    <string name="valid_email">Valid Username</string>
     <string name="title_activity_drawer">Drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

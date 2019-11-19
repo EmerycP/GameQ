@@ -17,7 +17,7 @@
     <string name="nav_header_desc">Tête de navigation</string>
     <string name="addGame">Ajouter un jeu</string>
     <string name="Completed">Jeux complétés</string>
-    <string name="toComplete">Jeux à completer</string>
+    <string name="toComplete">Jeux à compléter</string>
     <string name="logOut">Déconnexion</string>
     <string name="score">Note</string>
     <string name="to_completeButton">À Completer</string>

@@ -51,20 +51,20 @@ public class Inscription extends AppCompatActivity {
                     CurrentUser.user = response.body().emailCleaned;
                     Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
                     startActivity(intentMain);
-                    Toast.makeText(getApplicationContext(), "Bonjour " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.Hello) + " " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     try {
                         String mess = response.errorBody().string();
                         if(mess.equals("BlankException"))
-                            Toast.makeText(Inscription.this, "Au moins un des champs est vide.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Inscription.this, R.string.OneCharacterEmpty, Toast.LENGTH_SHORT).show();
                         if(mess.equals("UsernameExist"))
-                            Toast.makeText(Inscription.this, "Le nom d'utilisateur existe déjà.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Inscription.this, R.string.UsernameExist, Toast.LENGTH_SHORT).show();
                         if(mess.equals("NoSpace"))
-                            Toast.makeText(Inscription.this, "Les champs ne peuvent pas contenir d'espace.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Inscription.this, R.string.FieldSpace, Toast.LENGTH_SHORT).show();
                         if(mess.equals("MaxLength"))
-                            Toast.makeText(Inscription.this, "La limite de caractère des champs est de 20.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Inscription.this, R.string.CharaLimit20, Toast.LENGTH_SHORT).show();
                     }
                     catch(Exception e)
                     {
@@ -76,7 +76,7 @@ public class Inscription extends AppCompatActivity {
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
 
-                Toast.makeText(getApplicationContext(), "Erreur! " + t, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
             }
         });
             }

@@ -23,4 +23,20 @@
     <string name="completedButton">Completed</string>
     <string name="gameName">Game\'s Name</string>
     <string name="ok">OK</string>
+    <string name="gameExist">The game\'s name already exist in your list.</string>
+    <string name="ScoreError">The score must be between 0 and 100.</string>
+    <string name="MaxLength">The name of the game must not be above 80 characters. Currently: </string>
+    <string name="BlankName">The name field of the game is empty.</string>
+    <string name="BlankScore">The score field of the game is empty.</string>
+    <string name="GameEdited">The game has been edited.</string>
+    <string name="NoUserConnected">There\'s no user connected. Back to the login screen.</string>
+    <string name="SeeYa">See you next time</string>
+    <string name="Hello">Hello</string>
+    <string name="OneCharacterEmpty">At least one of the fields is empty.</string>
+    <string name="Error">Error</string>
+    <string name="SelectedDontExist">The selected game does not exist.</string>
+    <string name="NoMatch">The username and the password do not match.</string>
+    <string name="UsernameExist">The username already exist.</string>
+    <string name="FieldSpace">The fields can not contain spaces.</string>
+    <string name="CharaLimit20">The character limit of the fields is 20.</string>
 </resources>

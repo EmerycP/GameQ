@@ -51,16 +51,16 @@ public class LogIn extends AppCompatActivity {
                             CurrentUser.user = response.body().emailCleaned;
                             Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
                             startActivity(intentMain);
-                            Toast.makeText(getApplicationContext(), "Bonjour " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.Hello) + " "  + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
                             try {
                                 String mess = response.errorBody().string();
                                 if(mess.equals("BlankException"))
-                                    Toast.makeText(LogIn.this, "Au moins un des champs est vide.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LogIn.this, R.string.OneCharacterEmpty, Toast.LENGTH_SHORT).show();
                                 if(mess.equals("NoMatch"))
-                                    Toast.makeText(LogIn.this, "Le nom d'utilisateur et le mot de passe ne correspondent pas.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LogIn.this, R.string.NoMatch, Toast.LENGTH_SHORT).show();
                             }
                             catch(Exception e)
                             {
@@ -71,7 +71,7 @@ public class LogIn extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Erreur " + t, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
                     }
                 });
             }

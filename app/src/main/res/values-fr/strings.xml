@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GameQ</string>
+    <string name="gameq">GameQ!</string>
+    <string name="logo">Logo</string>
+    <string name="log_in">Connexion</string>
+    <string name="user">Nom d\'utilisateur</string>
+    <string name="password">Mot de passe</string>
+    <string name="signUp">Pas de compte? Inscrivez vous!</string>
+    <string name="sign_up">S\'inscrire</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="valid_email">Nom d\'utilisateur valide</string>
+    <string name="title_activity_drawer">Tirroir</string>
+    <string name="navigation_drawer_open">Ouvrir le navigation drawer</string>
+    <string name="navigation_drawer_close">Fermer le navigation drawer</string>
+    <string name="nav_TempName">Nom temporaire</string>
+    <string name="nav_header_desc">Tête de navigation</string>
+    <string name="addGame">Ajouter un jeu</string>
+    <string name="Completed">Jeux complétés</string>
+    <string name="toComplete">Jeux à completer</string>
+    <string name="logOut">Déconnexion</string>
+    <string name="score">Note</string>
+    <string name="to_completeButton">À Completer</string>
+    <string name="completedButton">Est Completé</string>
+    <string name="gameName">Nom du jeu</string>
+    <string name="ok">Accepter</string>
+    <string name="gameExist">Le jeu portant ce nom fait déjà partie de votre liste.</string>
+    <string name="ScoreError">La note doit être en 0 et 100.</string>
+    <string name="MaxLength">Le nom du jeu ne doit pas être au dessus de 80 caractères. Actuel:</string>
+    <string name="BlankName">Le champs du nom du jeu est vide.</string>
+    <string name="BlankScore">Le champs de la note est vide.</string>
+    <string name="GameEdited">Le jeu a été modifié.</string>
+    <string name="NoUserConnected">Il n\'y a présentement aucun utilisateur de connecté. Retour à l\'écran de connexion.</string>
+    <string name="SeeYa">Au revoir</string>
+    <string name="Hello">Bonjour</string>
+    <string name="OneCharacterEmpty">Au moins un des champs est vide.</string>
+    <string name="Error">Erreur</string>
+    <string name="SelectedDontExist">Le jeu sélectionné n\'existe pas.</string>
+    <string name="NoMatch">Le nom d\'utilisateur et le mot de passe ne correspondent pas.</string>
+    <string name="UsernameExist">Le nom d\'utilisateur existe déjà.</string>
+    <string name="FieldSpace">Les champs ne peuvent pas contenir d\'espace.</string>
+    <string name="CharaLimit20">La limite de caractère des champs est de 20.</string>
+</resources>

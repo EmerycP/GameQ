@@ -67,7 +67,7 @@ public class ToComplete extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<Game>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -123,7 +123,7 @@ public class ToComplete extends AppCompatActivity {
                             {
                                 Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                 startActivity(intentLogIn);
-                                Toast.makeText(getApplicationContext(), "Au revoir " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.SeeYa) + " " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
                             }
                             else
 
@@ -131,7 +131,7 @@ public class ToComplete extends AppCompatActivity {
                                     String mess = response.errorBody().string();
                                     if(mess.equals("NoUserConnected"))
                                     {
-                                        Toast.makeText(ToComplete.this, "Il n'y a présentement aucun utilisateur de connecté. Retour à l'écran de connexion.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ToComplete.this, R.string.NoUserConnected, Toast.LENGTH_SHORT).show();
                                         Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                         startActivity(intentLogIn);
                                     }
@@ -145,7 +145,7 @@ public class ToComplete extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

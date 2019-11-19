@@ -87,15 +87,15 @@ public class AddGame extends AppCompatActivity {
                             try {
                                 String mess = response.errorBody().string();
                                 if(mess.equals("GameExist"))
-                                    Toast.makeText(AddGame.this, "Le jeu portant ce nom fait déjà partie de votre liste.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddGame.this, R.string.gameExist, Toast.LENGTH_SHORT).show();
                                 if(mess.equals("Score"))
-                                    Toast.makeText(AddGame.this, "Le score doit être en 0 et 100", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddGame.this, R.string.ScoreError, Toast.LENGTH_SHORT).show();
                                 if(mess.equals("MaxLength"))
-                                    Toast.makeText(AddGame.this, "Le nom du jeu ne doit pas être au dessus de 80 caractères. Actuel: " + gameName.length(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddGame.this, getString(R.string.MaxLength) + gameName.length(), Toast.LENGTH_SHORT).show();
                                 if(mess.equals("BlankException"))
-                                    Toast.makeText(AddGame.this, "Le champs du nom du jeu est vide.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddGame.this, R.string.BlankName, Toast.LENGTH_SHORT).show();
                                 if(mess.equals("BlankScore"))
-                                    Toast.makeText(AddGame.this, "Le champs du score est vide.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddGame.this, R.string.BlankScore, Toast.LENGTH_SHORT).show();
 
                             }
 
@@ -108,7 +108,7 @@ public class AddGame extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Boolean> call, Throwable t) {
-
+                        Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -185,7 +185,7 @@ public class AddGame extends AppCompatActivity {
                             {
                                 Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                 startActivity(intentLogIn);
-                                Toast.makeText(getApplicationContext(), "Au revoir " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.SeeYa) + " " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
                             }
                             else
 
@@ -193,7 +193,7 @@ public class AddGame extends AppCompatActivity {
                                     String mess = response.errorBody().string();
                                     if(mess.equals("NoUserConnected"))
                                     {
-                                        Toast.makeText(AddGame.this, "Il n'y a présentement aucun utilisateur de connecté. Retour à l'écran de connexion.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(AddGame.this, R.string.NoUserConnected, Toast.LENGTH_SHORT).show();
                                         Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                         startActivity(intentLogIn);
                                     }
@@ -207,7 +207,7 @@ public class AddGame extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

@@ -84,7 +84,7 @@ public class EditGame extends AppCompatActivity {
                     try {
                         String mess = response.errorBody().string();
                         if(mess.equals("GameSelectedDontExist"))
-                            Toast.makeText(EditGame.this, "Le jeu sélectionné n'existe pas.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditGame.this, R.string.SelectedDontExist, Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -118,24 +118,23 @@ public class EditGame extends AppCompatActivity {
 
                                 Intent intentCompleted = new Intent(getApplicationContext(), Completed.class);
                                 startActivity(intentCompleted);
-                                Toast.makeText(getApplicationContext(), "Le jeu " + gameR.Name + " été modifié.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), R.string.GameEdited, Toast.LENGTH_SHORT).show();
                             }
                             else
                             {
                                 try {
                                     String mess = response.errorBody().string();
                                     if(mess.equals("GameExist"))
-                                        Toast.makeText(EditGame.this, "Le jeu portant ce nom fait déjà partie de votre liste.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditGame.this, R.string.gameExist, Toast.LENGTH_SHORT).show();
                                     if(mess.equals("Score"))
-                                        Toast.makeText(EditGame.this, "Le score doit être en 0 et 100", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditGame.this, R.string.ScoreError, Toast.LENGTH_SHORT).show();
                                     if(mess.equals("MaxLength"))
-                                        Toast.makeText(EditGame.this, "Le nom du jeu ne doit pas être au dessus de 80 caractères. Actuel: " + gameName.length(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditGame.this, getString(R.string.MaxLength) + gameName.length(), Toast.LENGTH_SHORT).show();
                                     if(mess.equals("BlankException"))
-                                        Toast.makeText(EditGame.this, "Le champs du nom du jeu est vide.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditGame.this, R.string.BlankName, Toast.LENGTH_SHORT).show();
                                     if(mess.equals("BlankScore"))
-                                        Toast.makeText(EditGame.this, "Le champs du score est vide.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditGame.this, R.string.BlankScore, Toast.LENGTH_SHORT).show();
                                 }
-
                                 catch(Exception e)
                                 {
                                     e.printStackTrace();
@@ -146,7 +145,7 @@ public class EditGame extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "Erreur", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.Error, Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -162,7 +161,7 @@ public class EditGame extends AppCompatActivity {
                             {
                                 Intent intentCompleted = new Intent(getApplicationContext(), ToComplete.class);
                                 startActivity(intentCompleted);
-                                Toast.makeText(getApplicationContext(), "Le jeu " + gameR.Name + " été modifié.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), R.string.GameEdited, Toast.LENGTH_SHORT).show();
 
                             }
                             else
@@ -170,15 +169,15 @@ public class EditGame extends AppCompatActivity {
                                 try {
                                     String mess = response.errorBody().string();
                                     if(mess.equals("GameExist"))
-                                        Toast.makeText(EditGame.this, "Le jeu portant ce nom fait déjà partie de votre liste.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditGame.this, R.string.gameExist, Toast.LENGTH_SHORT).show();
                                     if(mess.equals("Score"))
-                                        Toast.makeText(EditGame.this, "Le score doit être en 0 et 100", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditGame.this, R.string.ScoreError, Toast.LENGTH_SHORT).show();
                                     if(mess.equals("MaxLength"))
-                                        Toast.makeText(EditGame.this, "Le nom du jeu ne doit pas être au dessus de 80 caractères. Actuel: " + gameName.length(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditGame.this, getString(R.string.MaxLength) + gameName.length(), Toast.LENGTH_SHORT).show();
                                     if(mess.equals("BlankException"))
-                                        Toast.makeText(EditGame.this, "Le champs du nom du jeu est vide.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditGame.this, R.string.BlankName, Toast.LENGTH_SHORT).show();
                                     if(mess.equals("BlankScore"))
-                                        Toast.makeText(EditGame.this, "Le champs du score est vide.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditGame.this, R.string.BlankScore, Toast.LENGTH_SHORT).show();
                                 }
 
                                 catch(Exception e)
@@ -191,7 +190,7 @@ public class EditGame extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "Erreur", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.Error, Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -269,7 +268,7 @@ public class EditGame extends AppCompatActivity {
                             {
                                 Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                 startActivity(intentLogIn);
-                                Toast.makeText(getApplicationContext(), "Au revoir " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.SeeYa) + " " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
                             }
                             else
 
@@ -277,7 +276,7 @@ public class EditGame extends AppCompatActivity {
                                     String mess = response.errorBody().string();
                                     if(mess.equals("NoUserConnected"))
                                     {
-                                        Toast.makeText(EditGame.this, "Il n'y a présentement aucun utilisateur de connecté. Retour à l'écran de connexion.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(EditGame.this, R.string.NoUserConnected, Toast.LENGTH_SHORT).show();
                                         Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                         startActivity(intentLogIn);
                                     }
@@ -291,7 +290,7 @@ public class EditGame extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.Error, Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

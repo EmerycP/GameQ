@@ -2,6 +2,7 @@ package com.emerycprimeau.gameq.GUI.connexion;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +24,8 @@ import retrofit2.Response;
 
 public class LogIn extends AppCompatActivity {
 
+    ProgressDialog progressD;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,10 @@ public class LogIn extends AppCompatActivity {
                 LoginRequest lR = new LoginRequest();
                 lR.user = userLogin.getText().toString();
                 lR.password = passLogin.getText().toString();
+
+                progressD = ProgressDialog.show(LogIn.this, getString(R.string.PleaseWait),
+                        getString(R.string.messOp), true);
+
                 Service.toLogin(lR).enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -52,6 +59,7 @@ public class LogIn extends AppCompatActivity {
                             Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
                             startActivity(intentMain);
                             Toast.makeText(getApplicationContext(), getString(R.string.Hello) + " "  + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
+                            progressD.dismiss();
                         }
                         else
                         {
@@ -61,6 +69,8 @@ public class LogIn extends AppCompatActivity {
                                     Toast.makeText(LogIn.this, R.string.OneCharacterEmpty, Toast.LENGTH_SHORT).show();
                                 if(mess.equals("NoMatch"))
                                     Toast.makeText(LogIn.this, R.string.NoMatch, Toast.LENGTH_SHORT).show();
+
+                                progressD.dismiss();
                             }
                             catch(Exception e)
                             {
@@ -72,6 +82,7 @@ public class LogIn extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
                         Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
+                        progressD.dismiss();
                     }
                 });
             }

@@ -8,10 +8,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,10 +45,14 @@ public class ToComplete extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    private RelativeLayout pB;
+    ProgressDialog progressD;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.to_complete);
+        pB = findViewById(R.id.progressBar);
         final Service service = GameRetrofit.getReal();
 
         //region recyclerView
@@ -56,6 +62,8 @@ public class ToComplete extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        startDownload();
+
         service.getToCompleteList(CurrentUser.currentId).enqueue(new Callback<List<Game>>() {
             @Override
             public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
@@ -63,11 +71,13 @@ public class ToComplete extends AppCompatActivity {
                 {
                     mAdapter = new MonAdapteurToComplete(response.body(), getApplicationContext());
                     recyclerView.setAdapter(mAdapter);
+                    endDownload();
                 }
             }
             @Override
             public void onFailure(Call<List<Game>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
+                endDownload();
             }
         });
 
@@ -116,6 +126,8 @@ public class ToComplete extends AppCompatActivity {
                 } else if (id == R.id.nav_LogOut) {
                     LogoutRequest lR = new LogoutRequest();
                     lR.userID = CurrentUser.currentId;
+                    progressD = ProgressDialog.show(ToComplete.this, getString(R.string.PleaseWait),
+                            getString(R.string.messOp), true);
                     service.toLogOut(lR).enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -123,6 +135,7 @@ public class ToComplete extends AppCompatActivity {
                             {
                                 Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                 startActivity(intentLogIn);
+                                progressD.dismiss();
                                 Toast.makeText(getApplicationContext(), getString(R.string.SeeYa) + " " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
                             }
                             else
@@ -131,6 +144,7 @@ public class ToComplete extends AppCompatActivity {
                                     String mess = response.errorBody().string();
                                     if(mess.equals("NoUserConnected"))
                                     {
+                                        progressD.dismiss();
                                         Toast.makeText(ToComplete.this, R.string.NoUserConnected, Toast.LENGTH_SHORT).show();
                                         Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                         startActivity(intentLogIn);
@@ -145,6 +159,7 @@ public class ToComplete extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
+                            progressD.dismiss();
                             Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -174,6 +189,16 @@ public class ToComplete extends AppCompatActivity {
             return  true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startDownload(){
+        pB.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    private void endDownload(){
+        pB.setVisibility(View.GONE);//INVISIBLE occupe de l'espace GONE non
+        recyclerView.setVisibility(View.VISIBLE);
     }
 
 }

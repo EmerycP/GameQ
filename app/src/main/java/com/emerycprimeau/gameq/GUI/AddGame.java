@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emerycprimeau.gameq.GUI.completed.Completed;
+import com.emerycprimeau.gameq.GUI.connexion.Inscription;
 import com.emerycprimeau.gameq.GUI.connexion.LogIn;
 import com.emerycprimeau.gameq.GUI.toComplete.ToComplete;
 import com.emerycprimeau.gameq.R;
@@ -36,6 +38,7 @@ public class AddGame extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    ProgressDialog progressD;
 
 
     @Override
@@ -65,6 +68,9 @@ public class AddGame extends AppCompatActivity {
                 if( !editTextScore.getText().toString().equals("") && editTextScore.getText().toString().length() > 0 )
                     gameR.Score = Integer.parseInt(editTextScore.getText().toString());
 
+                progressD = ProgressDialog.show(AddGame.this, getString(R.string.PleaseWait),
+                        getString(R.string.messOp), true);
+
                 service.toAdd(CurrentUser.currentId, gameR).enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -74,12 +80,15 @@ public class AddGame extends AppCompatActivity {
                             {
                                 Intent intentCompleted = new Intent(getApplicationContext(), Completed.class);
                                 startActivity(intentCompleted);
+                                progressD.dismiss();
                             }
                             else
                             {
                                 gameR.Score = 0;
                                 Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
                                 startActivity(intentMain);
+                                progressD.dismiss();
+
                             }
                         }
                         else
@@ -97,6 +106,8 @@ public class AddGame extends AppCompatActivity {
                                 if(mess.equals("BlankScore"))
                                     Toast.makeText(AddGame.this, R.string.BlankScore, Toast.LENGTH_SHORT).show();
 
+                                progressD.dismiss();
+
                             }
 
                             catch(Exception e)
@@ -108,6 +119,8 @@ public class AddGame extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Boolean> call, Throwable t) {
+                        progressD.dismiss();
+
                         Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -178,6 +191,8 @@ public class AddGame extends AppCompatActivity {
                 } else if (id == R.id.nav_LogOut) {
                     LogoutRequest lR = new LogoutRequest();
                     lR.userID = CurrentUser.currentId;
+                    progressD = ProgressDialog.show(AddGame.this, getString(R.string.PleaseWait),
+                            getString(R.string.messOp), true);
                     service.toLogOut(lR).enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -185,6 +200,7 @@ public class AddGame extends AppCompatActivity {
                             {
                                 Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                 startActivity(intentLogIn);
+                                progressD.dismiss();
                                 Toast.makeText(getApplicationContext(), getString(R.string.SeeYa) + " " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
                             }
                             else
@@ -193,6 +209,7 @@ public class AddGame extends AppCompatActivity {
                                     String mess = response.errorBody().string();
                                     if(mess.equals("NoUserConnected"))
                                     {
+                                        progressD.dismiss();
                                         Toast.makeText(AddGame.this, R.string.NoUserConnected, Toast.LENGTH_SHORT).show();
                                         Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                         startActivity(intentLogIn);
@@ -207,6 +224,7 @@ public class AddGame extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
+                            progressD.dismiss();
                             Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
                         }
                     });

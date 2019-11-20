@@ -8,14 +8,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emerycprimeau.gameq.GUI.AddGame;
+import com.emerycprimeau.gameq.GUI.connexion.Inscription;
 import com.emerycprimeau.gameq.GUI.connexion.LogIn;
 import com.emerycprimeau.gameq.GUI.toComplete.ToComplete;
 import com.emerycprimeau.gameq.R;
@@ -43,10 +47,14 @@ public class Completed extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    private RelativeLayout pB;
+    ProgressDialog progressD;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.completed);
+        pB = findViewById(R.id.progressBar);
         final Service service = GameRetrofit.getReal();
 
         //region recyclerView
@@ -55,9 +63,11 @@ public class Completed extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewCompleted);
         recyclerView.setHasFixedSize(true);
 
+
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        startDownload();
 
 
         service.getCompletedList(CurrentUser.currentId).enqueue(new Callback<List<Game>>() {
@@ -67,12 +77,14 @@ public class Completed extends AppCompatActivity {
                 {
                     mAdapter = new MonAdapteurCompleted(response.body(), getApplicationContext());
                     recyclerView.setAdapter(mAdapter);
+                    endDownload();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Game>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
+                endDownload();
             }
         });
         //endregion
@@ -120,6 +132,8 @@ public class Completed extends AppCompatActivity {
                 } else if (id == R.id.nav_LogOut) {
                     LogoutRequest lR = new LogoutRequest();
                     lR.userID = CurrentUser.currentId;
+                    progressD = ProgressDialog.show(Completed.this, getString(R.string.PleaseWait),
+                            getString(R.string.messOp), true);
                     service.toLogOut(lR).enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -127,6 +141,7 @@ public class Completed extends AppCompatActivity {
                             {
                                 Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                 startActivity(intentLogIn);
+                                progressD.dismiss();
                                 Toast.makeText(getApplicationContext(), getString(R.string.SeeYa) + " " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
                             }
                             else
@@ -135,6 +150,7 @@ public class Completed extends AppCompatActivity {
                                     String mess = response.errorBody().string();
                                     if(mess.equals("NoUserConnected"))
                                     {
+                                        progressD.dismiss();
                                         Toast.makeText(Completed.this, R.string.NoUserConnected, Toast.LENGTH_SHORT).show();
                                         Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                         startActivity(intentLogIn);
@@ -149,6 +165,7 @@ public class Completed extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
+                            progressD.dismiss();
                             Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -178,6 +195,16 @@ public class Completed extends AppCompatActivity {
             return  true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startDownload(){
+        pB.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    private void endDownload(){
+        pB.setVisibility(View.GONE);//INVISIBLE occupe de l'espace GONE non
+        recyclerView.setVisibility(View.VISIBLE);
     }
 
 }

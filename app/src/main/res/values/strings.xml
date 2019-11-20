@@ -39,4 +39,6 @@
     <string name="UsernameExist">The username already exist.</string>
     <string name="FieldSpace">The fields can not contain spaces.</string>
     <string name="CharaLimit20">The character limit of the fields is 20.</string>
+    <string name="PleaseWait">Please wait my dude!</string>
+    <string name="messOp">Sending data...</string>
 </resources>

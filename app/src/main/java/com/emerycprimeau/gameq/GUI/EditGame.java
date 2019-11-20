@@ -1,5 +1,6 @@
 package com.emerycprimeau.gameq.GUI;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,13 +50,17 @@ public class EditGame extends AppCompatActivity {
     public Button buttonOk;
     public TextView gameName;
     public EditText editTextScore;
+    private RelativeLayout pB;
+    private LinearLayout LL;
+    ProgressDialog progressD;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_game);
-        final ServiceMock serviceMock = GameRetrofit.get();
-
+        pB = findViewById(R.id.progressBar);
+        LL = findViewById(R.id.contentEdit);
         final Service service = GameRetrofit.getReal();
 
         //region Buttons
@@ -67,6 +74,9 @@ public class EditGame extends AppCompatActivity {
 
         Intent i = getIntent();
         int idIntent = i.getIntExtra("id", 0);
+
+        startDownload();
+
         service.getToEdit(CurrentUser.currentId, idIntent).enqueue(new Callback<Game>() {
             @Override
             public void onResponse(Call<Game> call, Response<Game> response) {
@@ -78,6 +88,7 @@ public class EditGame extends AppCompatActivity {
                     gameR.Name = response.body().Name;
                     gameR.EstCompleter = response.body().EstCompleter;
                     gameR.Score = response.body().Score;
+                    endDownload();
                 }
                 else
                 {
@@ -86,6 +97,7 @@ public class EditGame extends AppCompatActivity {
                         if(mess.equals("GameSelectedDontExist"))
                             Toast.makeText(EditGame.this, R.string.SelectedDontExist, Toast.LENGTH_SHORT).show();
 
+                        endDownload();
                     }
 
                     catch(Exception e)
@@ -97,12 +109,16 @@ public class EditGame extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Game> call, Throwable t) {
-
+                endDownload();
             }
         });
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                progressD = ProgressDialog.show(EditGame.this, getString(R.string.PleaseWait),
+                        getString(R.string.messOp), true);
+
                 if(editTextScore.getVisibility() == View.VISIBLE )
                 {
 
@@ -118,6 +134,8 @@ public class EditGame extends AppCompatActivity {
 
                                 Intent intentCompleted = new Intent(getApplicationContext(), Completed.class);
                                 startActivity(intentCompleted);
+                                progressD.dismiss();
+
                                 Toast.makeText(getApplicationContext(), R.string.GameEdited, Toast.LENGTH_SHORT).show();
                             }
                             else
@@ -134,6 +152,8 @@ public class EditGame extends AppCompatActivity {
                                         Toast.makeText(EditGame.this, R.string.BlankName, Toast.LENGTH_SHORT).show();
                                     if(mess.equals("BlankScore"))
                                         Toast.makeText(EditGame.this, R.string.BlankScore, Toast.LENGTH_SHORT).show();
+                                    progressD.dismiss();
+
                                 }
                                 catch(Exception e)
                                 {
@@ -145,6 +165,8 @@ public class EditGame extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
+                            progressD.dismiss();
+
                             Toast.makeText(getApplicationContext(), R.string.Error, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -161,6 +183,8 @@ public class EditGame extends AppCompatActivity {
                             {
                                 Intent intentCompleted = new Intent(getApplicationContext(), ToComplete.class);
                                 startActivity(intentCompleted);
+                                progressD.dismiss();
+
                                 Toast.makeText(getApplicationContext(), R.string.GameEdited, Toast.LENGTH_SHORT).show();
 
                             }
@@ -178,6 +202,9 @@ public class EditGame extends AppCompatActivity {
                                         Toast.makeText(EditGame.this, R.string.BlankName, Toast.LENGTH_SHORT).show();
                                     if(mess.equals("BlankScore"))
                                         Toast.makeText(EditGame.this, R.string.BlankScore, Toast.LENGTH_SHORT).show();
+
+                                    progressD.dismiss();
+
                                 }
 
                                 catch(Exception e)
@@ -190,6 +217,8 @@ public class EditGame extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
+                            progressD.dismiss();
+
                             Toast.makeText(getApplicationContext(), R.string.Error, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -261,6 +290,8 @@ public class EditGame extends AppCompatActivity {
                 } else if (id == R.id.nav_LogOut) {
                     LogoutRequest lR = new LogoutRequest();
                     lR.userID = CurrentUser.currentId;
+                    progressD = ProgressDialog.show(EditGame.this, getString(R.string.PleaseWait),
+                            getString(R.string.messOp), true);
                     service.toLogOut(lR).enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -269,6 +300,7 @@ public class EditGame extends AppCompatActivity {
                                 Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                 startActivity(intentLogIn);
                                 Toast.makeText(getApplicationContext(), getString(R.string.SeeYa) + " " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
+                                progressD.dismiss();
                             }
                             else
 
@@ -276,9 +308,11 @@ public class EditGame extends AppCompatActivity {
                                     String mess = response.errorBody().string();
                                     if(mess.equals("NoUserConnected"))
                                     {
+                                        progressD.dismiss();
                                         Toast.makeText(EditGame.this, R.string.NoUserConnected, Toast.LENGTH_SHORT).show();
                                         Intent intentLogIn = new Intent(getApplicationContext(), LogIn.class);
                                         startActivity(intentLogIn);
+
                                     }
 
                                 }
@@ -290,6 +324,7 @@ public class EditGame extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
+                            progressD.dismiss();
                             Toast.makeText(getApplicationContext(), R.string.Error, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -349,4 +384,15 @@ public class EditGame extends AppCompatActivity {
             editTextScore.setText("0");
         }
     }
+
+    private void startDownload(){
+        pB.setVisibility(View.VISIBLE);
+        LL.setVisibility(View.GONE);
+    }
+
+    private void endDownload(){
+        pB.setVisibility(View.GONE);//INVISIBLE occupe de l'espace GONE non
+        LL.setVisibility(View.VISIBLE);
+    }
+
 }

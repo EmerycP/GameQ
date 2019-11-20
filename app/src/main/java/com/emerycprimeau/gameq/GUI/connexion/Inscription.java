@@ -2,6 +2,7 @@ package com.emerycprimeau.gameq.GUI.connexion;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,8 @@ import retrofit2.Response;
 
 public class Inscription extends AppCompatActivity {
 
+    ProgressDialog progressD;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,8 @@ public class Inscription extends AppCompatActivity {
                 SignupRequest sR = new SignupRequest();
                 sR.user = userSign.getText().toString();
                 sR.password = passSign.getText().toString();
+                progressD = ProgressDialog.show(Inscription.this, getString(R.string.PleaseWait),
+                        getString(R.string.messOp), true);
 
         s.toSignUp(sR).enqueue(new Callback<LoginResponse>() {
             @Override
@@ -52,6 +57,7 @@ public class Inscription extends AppCompatActivity {
                     Intent intentMain = new Intent(getApplicationContext(), ToComplete.class);
                     startActivity(intentMain);
                     Toast.makeText(getApplicationContext(), getString(R.string.Hello) + " " + CurrentUser.user + " !", Toast.LENGTH_SHORT).show();
+                    progressD.dismiss();
                 }
                 else
                 {
@@ -65,6 +71,8 @@ public class Inscription extends AppCompatActivity {
                             Toast.makeText(Inscription.this, R.string.FieldSpace, Toast.LENGTH_SHORT).show();
                         if(mess.equals("MaxLength"))
                             Toast.makeText(Inscription.this, R.string.CharaLimit20, Toast.LENGTH_SHORT).show();
+
+                        progressD.dismiss();
                     }
                     catch(Exception e)
                     {
@@ -76,7 +84,9 @@ public class Inscription extends AppCompatActivity {
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
 
+                progressD.dismiss();
                 Toast.makeText(getApplicationContext(), getString(R.string.Error) + t, Toast.LENGTH_SHORT).show();
+
             }
         });
             }

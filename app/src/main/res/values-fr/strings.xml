@@ -40,4 +40,6 @@
     <string name="UsernameExist">Le nom d\'utilisateur existe déjà.</string>
     <string name="FieldSpace">Les champs ne peuvent pas contenir d\'espace.</string>
     <string name="CharaLimit20">La limite de caractère des champs est de 20.</string>
+    <string name="PleaseWait">Un p\'tit moment!</string>
+    <string name="messOp">Envoie des données...</string>
 </resources>

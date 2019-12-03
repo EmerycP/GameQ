@@ -35,8 +35,8 @@ public interface Service {
     @GET("gameCompleted/{userId}")
     Call<List<Game>> getCompletedList (@Path("userId") int userId);
 
-    @POST("logout")
-    Call<Boolean> toLogOut (@Body LogoutRequest logoutRequest);
+    @GET("logout")
+    Call<Boolean> toLogOut ();
 
     @GET("toEdit/{userId}/{gameId}")
     Call<Game> getToEdit (@Path("userId") int userId, @Path("gameId") int gameId);

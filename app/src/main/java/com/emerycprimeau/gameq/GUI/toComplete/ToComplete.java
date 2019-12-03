@@ -53,7 +53,8 @@ public class ToComplete extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.to_complete);
         pB = findViewById(R.id.progressBar);
-        final Service service = GameRetrofit.getReal();
+        GameRetrofit.getReal();
+        final Service service = GameRetrofit.service;
 
         //region recyclerView
         recyclerView = findViewById(R.id.recyclerViewToComplete);
@@ -128,7 +129,7 @@ public class ToComplete extends AppCompatActivity {
                     lR.userID = CurrentUser.currentId;
                     progressD = ProgressDialog.show(ToComplete.this, getString(R.string.PleaseWait),
                             getString(R.string.messOp), true);
-                    service.toLogOut(lR).enqueue(new Callback<Boolean>() {
+                    service.toLogOut().enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                             if(response.isSuccessful())

@@ -36,7 +36,8 @@ public class LogIn extends AppCompatActivity {
         final TextView userLogin = findViewById(R.id.userText);
         final TextView passLogin = findViewById(R.id.passwordText);
 
-        final Service Service = GameRetrofit.getReal();
+        GameRetrofit.getReal();
+        final Service Service = GameRetrofit.service;
 
 
         buttonLogIn.setOnClickListener(new View.OnClickListener() {

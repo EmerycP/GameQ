@@ -45,8 +45,8 @@ public class AddGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_game);
-
-        final Service service = GameRetrofit.getReal();
+        GameRetrofit.getReal();
+        final Service service = GameRetrofit.service;
 
         //region Buttons
         final Button buttonCompleted = findViewById(R.id.buttonComplete);
@@ -193,7 +193,7 @@ public class AddGame extends AppCompatActivity {
                     lR.userID = CurrentUser.currentId;
                     progressD = ProgressDialog.show(AddGame.this, getString(R.string.PleaseWait),
                             getString(R.string.messOp), true);
-                    service.toLogOut(lR).enqueue(new Callback<Boolean>() {
+                    service.toLogOut().enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                             if(response.isSuccessful())

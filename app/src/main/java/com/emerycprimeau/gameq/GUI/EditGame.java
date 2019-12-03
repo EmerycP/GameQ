@@ -61,7 +61,8 @@ public class EditGame extends AppCompatActivity {
         setContentView(R.layout.edit_game);
         pB = findViewById(R.id.progressBar);
         LL = findViewById(R.id.contentEdit);
-        final Service service = GameRetrofit.getReal();
+        GameRetrofit.getReal();
+        final Service service = GameRetrofit.service;
 
         //region Buttons
         buttonCompleted = findViewById(R.id.buttonComplete);
@@ -292,7 +293,7 @@ public class EditGame extends AppCompatActivity {
                     lR.userID = CurrentUser.currentId;
                     progressD = ProgressDialog.show(EditGame.this, getString(R.string.PleaseWait),
                             getString(R.string.messOp), true);
-                    service.toLogOut(lR).enqueue(new Callback<Boolean>() {
+                    service.toLogOut().enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                             if(response.isSuccessful())

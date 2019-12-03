@@ -3,6 +3,9 @@ package com.emerycprimeau.gameq.http;
 import com.emerycprimeau.gameq.http.mock.Mock;
 import com.emerycprimeau.gameq.http.mock.ServiceMock;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
@@ -10,6 +13,9 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -21,21 +27,56 @@ import retrofit2.mock.NetworkBehavior;
 
 public class GameRetrofit {
 
-  public static Service getReal(){
+  public static Service service = null;
+
+
+    private static GameRetrofit single_instance = null;
+
+    public GameRetrofit(){
     Retrofit retrofit = new Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .client(getClient())
             .baseUrl("https://10.0.2.2:8443/api/")
             .build();
 
-    Service service = retrofit.create(Service.class);
-    return service;
+    service = retrofit.create(Service.class);
   }
 
+    public static GameRetrofit getReal()
+    {
+        if (single_instance == null)
+            single_instance = new GameRetrofit();
+
+        return single_instance;
+    }
+
+    public static class MyCookieJar implements CookieJar {
+
+        private List<Cookie> cookies;
+
+        @Override
+        public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+            this.cookies =  cookies;
+        }
+
+        @Override
+        public List<Cookie> loadForRequest(HttpUrl url) {
+            List<Cookie> res = new ArrayList<>();
+            if (cookies != null){
+                for(Cookie c : cookies){
+                    if (c.expiresAt() > System.currentTimeMillis()) res.add(c);
+                }
+            }
+            return res;
+        }
+    }
 
     public static OkHttpClient getClient(){
         try {
                 OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                CookieJar cookieJar =
+                    new MyCookieJar();
+                builder = builder.cookieJar(cookieJar);
                 final TrustManager[] trustAllCerts = new TrustManager[]{
                         new X509TrustManager() {
                             @Override

@@ -18,6 +18,7 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
@@ -27,11 +28,8 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/connexion/Inscription.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/connexion/Inscription.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/connexion/LogIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/connexion/LogIn.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/toComplete/ToComplete.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/toComplete/ToComplete.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/completed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/completed.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/edit_game.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/edit_game.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/to_complete.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/to_complete.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-fr/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-fr/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/GameRetrofit.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/GameRetrofit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/Service.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/app/build/generated/not_namespaced_r_class_sources/" />
@@ -90,21 +88,7 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/toComplete/ToComplete.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="59">
-              <caret line="161" column="48" selection-start-line="161" selection-start-column="48" selection-end-line="161" selection-end-column="48" />
-              <folding>
-                <element signature="e#5038#5068#0" expanded="true" />
-                <element signature="e#5098#5124#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -125,24 +109,24 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/mock/ServiceMock.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/models/transfer/GameRequest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/models/Game.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/Service.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/models/transfer/GameRequestEdit.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/models/transfer/LoginRequest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/models/CurrentUser.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/completed/MonAdapteurCompleted.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/GameRetrofit.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/completed.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/to_complete.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/edit_game.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/connexion/Inscription.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/connexion/LogIn.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-fr/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/EditGame.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/AddGame.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/completed/Completed.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/Service.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/GameRetrofit.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/connexion/LogIn.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/toComplete/ToComplete.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/connexion/Inscription.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/completed/Completed.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/AddGame.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/EditGame.java" />
       </list>
     </option>
   </component>
@@ -157,7 +141,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -188,21 +174,7 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="gameq" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
-              <item name="connexion" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GameQ" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="gameq" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
-              <item name="toComplete" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GameQ" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="http" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="GameQ" type="1abcf292:AndroidViewProjectNode" />
@@ -212,8 +184,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -221,7 +191,7 @@
     <property name="DEBUGGABLE_PROCESS" value="com.emerycprimeau.gameq" />
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
-    <property name="device.picker.selection" value="Pixel_2_API_27" />
+    <property name="device.picker.selection" value="Pixel_2_API_29" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Progress" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
@@ -319,7 +289,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.1369936" />
@@ -349,6 +318,18 @@
       <window_info anchor="right" id="Preview" order="6" weight="0.32942432" />
     </layout>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/GameRetrofit.java</url>
+          <line>69</line>
+          <properties />
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor" />
@@ -368,12 +349,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="16" lean-forward="true" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/models/transfer/GameRequest.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -460,25 +441,18 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/login.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="28" column="33" lean-forward="true" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/add_game.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="63" selection-start-line="63" selection-end-line="64" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/Service.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="35" column="67" selection-start-line="35" selection-start-column="67" selection-end-line="35" selection-end-column="67" />
         </state>
       </provider>
     </entry>
@@ -493,55 +467,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/GameRetrofit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/edit_game.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="23" column="42" lean-forward="true" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/completed.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="44" selection-start-line="22" selection-start-column="44" selection-end-line="22" selection-end-column="44" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/to_complete.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/connexion/LogIn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
-          <folding>
-            <element signature="e#1665#1695#0" expanded="true" />
-            <element signature="e#1721#1747#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/connexion/Inscription.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="47" column="55" selection-start-line="47" selection-start-column="55" selection-end-line="47" selection-end-column="55" />
-          <folding>
-            <element signature="e#1698#1724#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -559,39 +505,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/connexion/LogIn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/toComplete/ToComplete.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="55" column="31" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/connexion/Inscription.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+          <folding>
+            <element signature="e#1698#1724#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/completed/Completed.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="167" column="48" selection-start-line="167" selection-start-column="48" selection-end-line="167" selection-end-column="48" />
+        <state relative-caret-position="374">
+          <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/GameRetrofit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
           <folding>
-            <element signature="e#5064#5094#0" expanded="true" />
-            <element signature="e#5124#5150#0" expanded="true" />
+            <element signature="e#1243#1244#0" expanded="true" />
+            <element signature="e#1290#1291#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/AddGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="40" column="4" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="29" />
+        <state relative-caret-position="231">
+          <caret line="47" column="31" selection-start-line="47" selection-start-column="31" selection-end-line="47" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/EditGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="293" column="62" lean-forward="true" selection-start-line="292" selection-start-column="20" selection-end-line="293" selection-end-column="62" />
+        <state relative-caret-position="342">
+          <caret line="66" column="24" lean-forward="true" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/GUI/toComplete/ToComplete.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/emerycprimeau/gameq/http/Service.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="59">
-          <caret line="161" column="48" selection-start-line="161" selection-start-column="48" selection-end-line="161" selection-end-column="48" />
-          <folding>
-            <element signature="e#5038#5068#0" expanded="true" />
-            <element signature="e#5098#5124#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="459">
+          <caret line="46" column="31" selection-start-line="46" selection-start-column="31" selection-end-line="46" selection-end-column="31" />
         </state>
       </provider>
     </entry>

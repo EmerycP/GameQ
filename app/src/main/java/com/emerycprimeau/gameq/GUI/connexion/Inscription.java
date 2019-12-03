@@ -32,8 +32,8 @@ public class Inscription extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
-
-        final Service s = GameRetrofit.getReal();
+        GameRetrofit.getReal();
+        final Service s = GameRetrofit.service;
 
         Button buttonLogIn = findViewById(R.id.bSingUp);
         final TextView userSign = findViewById(R.id.emailTextSign);

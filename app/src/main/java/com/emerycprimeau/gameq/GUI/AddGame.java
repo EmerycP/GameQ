@@ -71,7 +71,7 @@ public class AddGame extends AppCompatActivity {
                 progressD = ProgressDialog.show(AddGame.this, getString(R.string.PleaseWait),
                         getString(R.string.messOp), true);
 
-                service.toAdd(CurrentUser.currentId, gameR).enqueue(new Callback<Boolean>() {
+                service.toAdd(gameR).enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         if(response.isSuccessful())

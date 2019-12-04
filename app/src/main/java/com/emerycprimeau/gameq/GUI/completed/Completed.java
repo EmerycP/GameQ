@@ -71,7 +71,7 @@ public class Completed extends AppCompatActivity {
         startDownload();
 
 
-        service.getCompletedList(CurrentUser.currentId).enqueue(new Callback<List<Game>>() {
+        service.getCompletedList().enqueue(new Callback<List<Game>>() {
             @Override
             public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
                 if(response.isSuccessful())

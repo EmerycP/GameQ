@@ -65,7 +65,7 @@ public class ToComplete extends AppCompatActivity {
 
         startDownload();
 
-        service.getToCompleteList(CurrentUser.currentId).enqueue(new Callback<List<Game>>() {
+        service.getToCompleteList().enqueue(new Callback<List<Game>>() {
             @Override
             public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
                 if(response.isSuccessful())

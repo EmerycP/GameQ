@@ -78,7 +78,7 @@ public class EditGame extends AppCompatActivity {
 
         startDownload();
 
-        service.getToEdit(CurrentUser.currentId, idIntent).enqueue(new Callback<Game>() {
+        service.getToEdit(idIntent).enqueue(new Callback<Game>() {
             @Override
             public void onResponse(Call<Game> call, Response<Game> response) {
                 if (response.isSuccessful()) {

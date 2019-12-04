@@ -29,23 +29,23 @@ public interface Service {
     @POST("signup")
     Call<LoginResponse> toSignUp (@Body SignupRequest logR);
 
-    @GET("gameToComplete/{userId}")
-    Call<List<Game>> getToCompleteList (@Path("userId") int userId);
+    @GET("gameToComplete")
+    Call<List<Game>> getToCompleteList ();
 
-    @GET("gameCompleted/{userId}")
-    Call<List<Game>> getCompletedList (@Path("userId") int userId);
+    @GET("gameCompleted")
+    Call<List<Game>> getCompletedList ();
 
     @GET("logout")
     Call<Boolean> toLogOut ();
 
-    @GET("toEdit/{userId}/{gameId}")
-    Call<Game> getToEdit (@Path("userId") int userId, @Path("gameId") int gameId);
+    @GET("toEdit/{gameId}")
+    Call<Game> getToEdit (@Path("gameId") int gameId);
 
     @POST("GameEdited")
     Call<Boolean> gameEdit(@Body GameRequestEdit gameRequestEdit);
 
-    @POST("GameAdded/{userId}")
-    Call<Boolean> toAdd(@Path("userId") int userId, @Body Game game);
+    @POST("GameAdded")
+    Call<Boolean> toAdd(@Body Game game);
 
 
 
